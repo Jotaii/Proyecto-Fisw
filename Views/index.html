@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Login </title>
+
+      <!---->
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+      <link rel="stylesheet" href="css/reset.css">
+      <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="css/nav_styles.css" type="text/css">
+
+      <script type="js/bootstrap.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+  </head>
+
+
+  <head>
+      <meta charset="utf-8">
+      <title>{%block title %} Informar {% endblock %}</title>
+      <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+
+
+      <link rel="stylesheet" href="../../static/Informar/css/my_styles.css" type="text/css">
+
+  </head>
+
+  <header id="main-header">
+
+      <img class="logo" src="images/header-usm.png" height="70" width="700">
+
+
+      <nav>
+          <ul>
+              <li><a href="">Informaciones</a></li>
+              <a href=""><img class="icon" src="images/facebook.png"></a>
+              <a href=""><img class="icon" src="images/twitter.png"></a>
+          </ul>
+      </nav><!-- / nav -->
+
+  </header><!-- / #main-header -->
+
+
+
+
+  <body ng-app="app" ng-controller="myCtrl">
+
+  <div class="container">
+
+      <div class="row">
+
+          <div class="col-md-4 caja_login">
+
+              <div class="wrap" style="align:left">
+                  <div class="avatar">
+                      <img src="images/student.jpg">
+                  </div>
+                  <input type="text" placeholder="Username" required>
+
+                  <input type="password" placeholder="Password" required>
+                  <a href="" class="forgot_link">forgot ?</a>
+                  <a href="#" class="sign_in"> Sign In </a>
+
+
+              </div>
+          </div>
+
+          <div class="col-md-8">
+              <h1 class="bienvenido">Bienvenido!</h1>
+              <img class="foto" src="images/usm_cc.jpg" height="400px" width="800px">
+
+
+          </div>
+
+      </div>
+
+  </div>
+    
+        <script src="js/index.js"></script>
+    
+  </body>
+
+
+  <footer id="main-footer">Copyright © Uneed</footer>
+
+</html>

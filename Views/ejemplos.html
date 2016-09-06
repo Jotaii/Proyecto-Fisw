@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <title>Index</title>
+</head>
+<body ng-app="app" ng-controller="MyCtrl" align="center">
+<h1>La leyenda de Melda!</h1>
+
+<img src="images/link.png" height="300" width="600" alt="link">
+
+<select ng-model="SelectedName" ng-options="x for x in names"></select>
+
+<script>
+    var app = angular.module("app",[]);
+    app.controller("MyCtrl",function ($scope) {
+        $scope.names = ["Perro","Gato","Pajaro"];
+    });
+</script>
+
+<div ng-switch="SelectedName">
+    <div ng-switch-when="Perro">
+        <h1>Perro</h1>
+        <img src="images/perro.jpg" alt="perro" height="300" width="500">
+    </div>
+
+    <div ng-switch-when="Gato">
+        <h1>Gato</h1>
+        <img src="images/gato.jpg" alt="gato" height="300" width="500">
+    </div>
+
+    <div ng-switch-when="Pajaro">
+        <h1>Pajaro</h1>
+        <img src="images/pajaro.jpg" alt="pajaro" height="300" width="500">
+    </div>
+    
+</div>
+
+</body>
+</html>
