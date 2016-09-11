@@ -145,3 +145,17 @@ body {
 .boton_gray {background-color: #e7e7e7; color: black;} /* Gray */
 .boton_black {background-color: #555555;} /* Black */
 
+h1 {
+	font-family: Serif;
+	font-size: 58px;
+	color: black;
+	text-align: center;
+}
+
+.texto {
+	font-family: Serif;
+	font-size: 20px;
+	color: black;
+	text-align: center;
+}
+
