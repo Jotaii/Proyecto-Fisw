@@ -19,17 +19,29 @@ body {
 .avatar {
 	width: 100%;
 	margin: auto;
+<<<<<<< HEAD
 	width: 65px;
 	border-radius: 100px;
 	height: 65px;
+=======
+	width: 75px;
+	border-radius: 100px;
+	height: 85px;
+>>>>>>> new_project
 	background: #448ed3 ;
 	position: relative;
 	bottom: -15px;
 }
 .avatar img {
+<<<<<<< HEAD
 	width: 55px;
 	height: 55px;
 	border-radius: 100px;
+=======
+	width: 75px;
+	height: 75px;
+	border-radius: 150px;
+>>>>>>> new_project
 	margin: auto;
 	border:3px solid #fff;
 	display: block;
@@ -127,3 +139,38 @@ body {
 	cursor: pointer;
 }
 
+<<<<<<< HEAD
+=======
+.boton {
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+}
+
+.boton_blue {background-color: #008CBA;} /* Blue */
+.boton_red {background-color: #f44336;} /* Red */
+.boton_gray {background-color: #e7e7e7; color: black;} /* Gray */
+.boton_black {background-color: #555555;} /* Black */
+
+h1 {
+	font-family: Serif;
+	font-size: 58px;
+	color: black;
+	text-align: center;
+}
+
+.texto {
+	font-family: Serif;
+	font-size: 20px;
+	color: black;
+	text-align: center;
+}
+
+>>>>>>> new_project

@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario</title>
+    <!---->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/nav_styles.css" type="text/css">
+
+    <script type="js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js"></script>
+    <script src="js/app.js" type="text/javascript"></script> <!-- not created yet -->
+
+</head>
+
+
+<head>
+    <meta charset="utf-8">
+    <title>{%block title %} Informar {% endblock %}</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+
+
+    <link rel="stylesheet" href="../../static/Informar/css/my_styles.css" type="text/css">
+
+</head>
+
+<header id="main-header">
+
+    <img class="logo" src="images/header-usm.png" height="70" width="700">
+
+
+    <nav>
+        <ul>
+            <li><a href="">Informaciones</a></li>
+            <a href=""><img class="icon" src="images/facebook.png"></a>
+            <a href=""><img class="icon" src="images/twitter.png"></a>
+        </ul>
+    </nav><!-- / nav -->
+
+</header><!-- / #main-header -->
+
+
+
+
+<body ng-app="app">
+
+<form action="/test" method="post" enctype="application/x-www-form-urlencoded">
+
+    <div class="main" ng-controller="myCtrl">
+        <div class="container">
+
+            <div class="row">
+                <h1>Test de aprendizaje</h1>
+                <br>
+                <P class="texto">En el siguiente test se te pide que completes 12 frases. Cada frase puede terminarse
+                    de cuatro formas distintas. Ordena las cuatro opciones de cada frase según pienses que se ajustan
+                    a tu manera de aprender algo nuevo, tal vez en tu trabajo. Trata de pensar en situaciones recientes en
+                    en las que te enfrentaste a algo nuevo. Numera con un 4 la terminación que mejor se ajuste
+                    a tu forma de apender y con un 1 la que peor se ajuste. Asegúrate de asignar un número a
+                    todas las terminaciones de cada una de las 12 frases.</P>
+            </div>
+
+            <br><br>
+
+            <div class="row">
+                <h2 class="texto" style="text-align: left">1. Cuando aprendo...</h2>
+                <br>
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="a1">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">Me gusta vivir sensaciones</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="b1">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">Me gusta pensar ideas</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="c1">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">Me gusta estar haciendo cosas</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="d1">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">Me gusta observar y escuchar</p>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+            <div class="row">
+                <h2 class="texto" style="text-align: left">2. Aprendo mejor cuando...</h2>
+                <br>
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="a2">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">escucho y observo cuidadosamente</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="b2">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">confío en el pensamiento lógico</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="c2">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">confío en mi intuición y sentimientos</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="d2">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">trabajo duro para lograr hacer las cosas</p>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="row">
+                <h2 class="texto" style="text-align: left">3. Cuando estoy aprendiendo...</h2>
+                <br>
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="a3">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">tiendo a usar el razonamiento</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="b3">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">soy responsable con lo que hago</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="c3">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">soy callado y reservado</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="d3">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">tengo fuertes sensaciones y reacciones</p>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="row">
+                <h2 class="texto" style="text-align: left">4. Yo aprendo...</h2>
+                <br>
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="a4">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">sintiendo</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="b4">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">haciendo</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="c4">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">obervando</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="d4">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">pensando</p>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+            <div class="row">
+                <h2 class="texto" style="text-align: left">5. Cuando aprendo...</h2>
+                <br>
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="a5">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">estoy abierto a nuevas experiencias</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="b5">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">observo todos los aspectos del asunto</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="c5">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me gusta analizar las cosas, descomponerlas en sus partes</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="d5">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me gusta probar e intentar hacer las cosas</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <h2 class="texto" style="text-align: left">6. Cuando estoy aprendiendo...</h2>
+                <br>
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="a6">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">soy una persona observadora</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="b6">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">soy una persona activa</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="c6">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">soy una persona intuitiva</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="d6">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">soy una persona lógica</p>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="row">
+                <h2 class="texto" style="text-align: left">7. Yo aprendo mejor de...</h2>
+                <br>
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="a7">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">la observación</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="b7">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">la relación con otras personas</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="c7">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">las teorías racionales</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="d7">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">la oportunidad de probar y prácticar</p>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="row">
+                <h2 class="texto" style="text-align: left">8. Cuando aprendo...</h2>
+                <br>
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="a8">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me gusta ver los resultados de mi trabajo</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="b8">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me gustan las ideas y las teorías</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="c8">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me tomo mi tiempo antes de actuar</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="d8">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me siento personalmente involucrado en las cosas</p>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+            <div class="row">
+                <h2 class="texto" style="text-align: left">9. Aprendo mejor cuando...</h2>
+                <br>
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="a9">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">confio en mis observaciones</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="b9">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">confio en mis sentimientos</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="c9">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">puedo probar por mi cuenta</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="d9">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">confio en mis ideas</p>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="row">
+                <h2 class="texto" style="text-align: left">10. Cuando estoy aprendiendo...</h2>
+                <br>
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="a10">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">soy una persona reservado</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="b10">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">soy una persona receptiva</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="c10">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">soy una persona responsable</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="d10">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">soy una persona racional</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <h2 class="texto" style="text-align: left">11. Cuando aprendo...</h2>
+                <br>
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="a11">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me involucro</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="b11">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me gusta observar</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="c11">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me evalúo las cosas</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="d11">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me gusta ser activo</p>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="row">
+                <h2 class="texto" style="text-align: left">12. Aprendo mejor cuando...</h2>
+                <br>
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="a12">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me gusta vivir sensaciones</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="b12">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me gusta pensar ideas</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="c12">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me gusta estar haciendo cosas</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <select class="form-control" name="d12">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-11">
+                        <p class="respuesta">me gusta observar y escuchar</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <button class="boton" type="submit">Enviar Encuesta</button>
+
+        </div>
+
+    </div>
+
+    <script src="js/test.js"></script>
+
+</form>
+
+</body>
+
+
+<footer id="main-footer">Copyright © Uneed</footer>
+
+</html>
