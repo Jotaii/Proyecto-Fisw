@@ -93,12 +93,32 @@ function Register(user,appat, apmat, rut, mail, fechanac, contrasenia, callback)
         });
 }
 
+
+function CallVegeta(callback) {
+
+  var db = require("../BD_connection");
+
+  // Si quieren cambian vegeta por algun numbre que tengan de Usuario :v
+  db.where({ nombre_usuario : 'vegeta' })
+  db.get('Usuario', function(err, results, fields) {
+
+    var vegeta = results[0];
+    console.log("nombre: "+vegeta.nombre_usuario);
+    console.log("pass: "+vegeta.password_usuario);
+    console.log("tipo: "+vegeta.tipo_usuario);
+  });
+
+}
+
 //---------------------------------------------------------------------
 // RUTAS --------------------------------------------------------------
 //---------------------------------------------------------------------
 
 /* GET login page. */
 router.get('/', function(req, res, next) {
+
+  CallVegeta();
+
   res.sendFile(path.join(__dirname, '../', 'views', 'index.html'));
 });
 
@@ -130,6 +150,13 @@ router.post('/', function(req, res, next) {
 router.get('/home', function(req, res, next) {
   console.log("home");
   res.sendFile(path.join(__dirname, '../', 'views', 'home.html'));
+});
+
+
+/* GET home page. */
+router.get('/auth', function(req, res, next) {
+  console.log("auth");
+  res.sendFile(path.join(__dirname, '../', 'views', 'auth.html'));
 });
 
 
