@@ -7,7 +7,7 @@ var pool      =    mysql.createPool({
     connectionLimit : 100, //important
     host     : 'localhost',
     user     : 'root',
-    password : 'palpadv2',
+    password : '12345',
     database : 'fisw',
     debug    :  false
 });
@@ -19,7 +19,7 @@ var Db = require('mysql-activerecord');
 var db = new Db.Adapter({
     server: 'localhost',
     username: 'root',
-    password: '1234',
+    password: '12345',
     database: 'fisw',
     reconnectTimeout: 2000
 });

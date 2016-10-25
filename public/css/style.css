@@ -159,3 +159,23 @@ h1 {
 	text-align: center;
 }
 
+.div_content {
+	background-color: #D3EEF8;
+	margin-bottom: 40px;
+}
+
+.titulo_curso{
+	font-family: Serif;
+	font-size: 58px;
+	color: black;
+	text-align: left;
+}
+
+.sub_titulo{
+	font-family: Serif;
+	font-size: 38px;
+	color: black;
+}
+
+
+

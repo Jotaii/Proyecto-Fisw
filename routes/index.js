@@ -285,7 +285,10 @@ router.post('/registro', function (req, res, next) {
 });
 
 
-
+/* GET register page. */
+router.get('/campo_electrico', function (req, res, next) {
+  res.sendFile(path.join(__dirname, '../', 'views', 'campo_electrico.html'));
+});
 
 
 
