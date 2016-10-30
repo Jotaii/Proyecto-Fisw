@@ -7,16 +7,19 @@
   },
   "dependencies": {
     "body-parser": "~1.15.1",
+    "client-sessions": "^0.7.0",
     "cookie-parser": "~1.4.3",
     "crypto": "0.0.3",
     "debug": "~2.2.0",
     "dialog": "^0.1.8",
+    "ejs": "^2.5.2",
     "express": "~4.13.4",
+    "express-session": "^1.14.1",
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
     "mysql": "^2.11.1",
     "mysql-activerecord": "^0.8.6",
-    "serve-favicon": "~2.3.0",
-    "nodemailer": "~2.6.x"
+    "nodemailer": "~2.6.x",
+    "serve-favicon": "~2.3.0"
   }
 }

@@ -4,26 +4,45 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+// Definicion de controladores---------------------------------------------
+var grade_controller = require('./controllers/index');
+var users_controller = require('./controllers/users');
 
+// Configuracion de aplicacion --------------------------------------------
 var app = express();
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+//app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
+// Dependencias a usar ----------------------------------------------------
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
 
-app.use(['/','/home','/auth'], routes);
-app.use('/users', users);
+// Sesion de usuarios -----------------------------------------------------
+
+app.use(session({
+  cookieName: 'session',
+  secret: 'guachimingo',
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+  resave: true,
+  saveUninitialized: true
+}));
+
+// Redirigir rutas a controladores ----------------------------------------
+app.use(['/','/home','/auth'], grade_controller);
+app.use('/users', users_controller);
+
+// Manejo de errores ---------------------------------------------------------------
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
