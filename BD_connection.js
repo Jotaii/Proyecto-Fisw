@@ -19,7 +19,7 @@ var Db = require('mysql-activerecord');
 var db = new Db.Adapter({
     server: 'localhost',
     username: 'root',
-    password: '12345',
+    password: '1234',
     database: 'fisw',
     reconnectTimeout: 2000
 });

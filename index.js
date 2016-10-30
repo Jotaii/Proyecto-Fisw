@@ -30,60 +30,45 @@ function Authenticate(user,pass,callback) {
 }
 
 
-// Funcion para registrar usuario
-function Register(user,appat, apmat, rut, mail, fechanac, contrasenia, callback) {
+//Funcion para registrarUsuario con activerecord
 
+function registrarUsuario(data, callback) {
     var db = require("../BD_connection");
-    var username = user + '.' + appat + '.' + rut.split('.')[1];
-
-    while (repeat = true) {
-        db.query('select * from Usuario where nombre_usuario =' + username,
-            function (err, rows, fields) {
-                if (err) {
-                    console.log("ERROR EN LA BASE DE DATOS");
-                } else {
-                    if (rows.length() == 0) {
-                        repeat = false;
-                        db.query('insert into Usuario (' +
-                            'nombre_usuario,' +
-                            ' password_usuario,' +
-                            ' tipo_usuario) values ('
-                            + username + ',' + password + ',0)',
-                            function (err, rows, fields) {
-                                if (err) {
-                                    console.log("ERROR EN LA BASE DE DATOS");
-                                } else {
-                                    console.log("Registro exitoso");
-                                }
-                            });
-                        db.query('insert into Alumno (' +
-                            'nombre_alumno,' +
-                            'apellido_p_alumno, ' +
-                            'apellido_m_alumno,' +
-                            'rut_alumno,' +
-                            'nac_alumno' +
-                            'categoria' +
-                            'nombre_usuario) values ('
-                            + user + ',' + appat + ',' + apmat + ',' + rut + ',' + fechanac + ', 0' + username + ')',
-                            function (err, rows, fields) {
-                                if (err) {
-                                    console.log("ERROR EN LA BASE DE DATOS");
-                                } else {
-                                    console.log("Ok");
-                                    return callback(1);
-                                }
-                                return callback(0);
-                            });
-
-                    } else {
-                        rutint = rut.split('.')[1];
-                        username = user + '.' + appat + '.' + toString((parseInt(rutint) + 1));
-                    }
-
-                }
+    var user = data.nombre+ '.' + data.appat + '.' + data.rut.split(".")[1];
+    //primero verificar si ya existe el usuario
+    db.where({ nombre_usuario : user});
+    db.get('Usuario', function(err, results, fields){
+        if(results.length == 0){
+            var insercion_usuario = {
+                nombre_usuario : user,
+                password_usuario : data.pss,
+                tipo_usuario : 0,
+                mail_usuario : data.mail
+            };
+            db.insert('Usuario', insercion_usuario, function(err, info) {
+                console.log('New row ID is ' + insercion_usuario.nombre_usuario);
             });
-    }
-}
+
+            var insercion_alumno = {
+                rut_alumno : data.rut,
+                nombre_alumno : data.nombre,
+                apellido_p_alumno : data.appat,
+                apellido_m_alumno : data.apmat,
+                nac_alumno : data.fnac,
+                categoria_alumno : 0,
+                nombre_usuario : user
+            };
+            db.insert('Alumno', insercion_alumno, function(err, info) {
+                console.log('Alumno '+ data.nombre + " "+ data.appat + " "+ data.apmat + " agregado satisfactoriamente");
+            });
+            sendMail(user,data.mail);
+
+        }
+        else{
+            return err;
+        }
+    });
+};
 
 
 //---------------------------------------------------------------------
@@ -131,31 +116,35 @@ function Register(user,appat, apmat, rut, mail, fechanac, contrasenia, callback)
     });
 
 
-    /* POST register page. */
-    router.post('/register', function (req, res, next) {
+/* POST register page. */
+router.post('/registro', function (req, res, next) {
 
-        var nombre = req.body.Nombre;
-        var appat = req.body.Appat;
-        var appmat = req.body.Apmat;
-        var rut = req.body.rut;
-        var mail = req.body.correo;
-        var fnac = req.body.fechnac;
-        var pss = req.body.password;
+    var data = {
+        nombre : req.body.Nombre,
+        appat : req.body.Appat,
+        apmat : req.body.Apmat,
+        rut : req.body.rut,
+        mail : req.body.correo,
+        fnac : req.body.fechnac,
+        pss : req.body.password
 
-        var success = 0;
+    };
 
-        Register(nombre, appat, appmat, rut, mail, fnac, pss, function (success) {
+    var success = 0;
 
-            if (success == 1) {
-                console.log("Usuario Registrado");
-                res.redirect("/home");
-                //res.sendFile(path.join(__dirname, '../', 'views', 'home.html'));
-            }
-            else {
-                console.log("Error en el registro");
-                res.sendFile(path.join(__dirname, '../', 'views', 'register_error.html'));
-            }
-        });
+    registrarUsuario(data, function (success) {
+
+        if (success == 1) {
+            console.log("Usuario Registrado");
+            res.redirect("/home");
+            //res.sendFile(path.join(__dirname, '../', 'views', 'home.html'));
+        }
+        else {
+            console.log("Error en el registro");
+            res.sendFile(path.join(__dirname, '../', 'views', 'register_error.html'));
+        }
     });
+    res.redirect("/test");
+});
 
 module.exports = router;
