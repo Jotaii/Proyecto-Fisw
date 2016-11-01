@@ -43,50 +43,32 @@ function Authenticate(user,pass,callback) {
   });
 }
 
-//TRABAJAR EN ESTA FUNCION!!! NO ESTA LISTA!!!
-//enviar mail con credencial de acceso
-function sendMail(contenido, correo){
-  var nodemailer = require('nodemailer');
-
-// create reusable transporter object using the default SMTP transport
-  var transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
-
-// setup e-mail data with unicode symbols
-  var mailOptions = {
-    from: '"Sistema Kolb" <sistema.kolb@gmail.com>', // sender address
-    to: correo, // list of receivers
-    subject: 'Registro Sistema Kolb✔', // Subject line
-    text: 'Felicitaciones, tu registro esta completo, tu nombre de usuario es \n username: '+contenido, // plaintext body
-    html: '<b>Los tios de Kolb</b>' // html body
-  };
-
-// send mail with defined transport object
-  transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-      return console.log(error);
-    }
-    console.log('Message sent: ' + info.response);
-  });
-}
-
 
 //Funcion para registrarUsuario con activerecord
-
 function registrarUsuario(data, callback) {
-  var db = require("../BD_connection");
+  var db = require("../BD_connection","mysql-activerecord");
   var user = data.nombre+ '.' + data.appat + '.' + data.rut.split(".")[1];
-  //primero verificar si ya existe el usuario
-  db.where({ nombre_usuario : user});
+
+  //primero verificar si ya existe el usuario con mail registrado
+  db.where({ mail_usuario: data.mail});
   db.get('Usuario', function(err, results, fields){
-    if(results.length == 0){
-      var insercion_usuario = {
+    var largoquery = results.length;
+    if (largoquery == 0){
+      console.log("entramos al if del registro");
+        var insercion_usuario = {
         nombre_usuario : user,
         password_usuario : data.pss,
         tipo_usuario : 0,
         mail_usuario : data.mail
       };
-      db.insert('Usuario', insercion_usuario, function(err, info) {
-        console.log('New row ID is ' + insercion_usuario.nombre_usuario);
+      db.insert('Usuario', insercion_usuario, function(err) {
+          if (err) {
+              console.log("ERROR EN LA BASE DE DATOS");
+          }
+          else {
+              console.log('New row ID is ' + insercion_usuario.nombre_usuario);
+          }
+
       });
 
       var insercion_alumno = {
@@ -98,37 +80,23 @@ function registrarUsuario(data, callback) {
         categoria_alumno : 0,
         nombre_usuario : user
       };
-      db.insert('Alumno', insercion_alumno, function(err, info) {
-        console.log('Alumno '+ data.nombre + " "+ data.appat + " "+ data.apmat + " agregado satisfactoriamente");
-      });
-      sendMail(user,data.mail);
+      db.insert('Alumno', insercion_alumno, function(err) {
+          if (err) {
+              console.log("ERROR EN LA BASE DE DATOS");
+          }
+          else {
+              console.log('Alumno '+ data.nombre + " "+ data.appat + " "+ data.apmat + " agregado satisfactoriamente");
+          }
 
+      });
+        return callback(1);
     }
     else{
-      return err;
+        console.log("entramos al else del registro");
+        return callback(0);
     }
   });
-};
-
-
-
-
-function CallVegeta(callback) {
-
-  var db = require("../BD_connection");
-
-  // Si quieren cambian vegeta por algun numbre que tengan de Usuario :v
-  db.where({ nombre_usuario : 'vegeta' });
-  db.get('Usuario', function(err, results, fields) {
-
-  var vegeta = results[0];
-    console.log("nombre: "+vegeta.nombre_usuario);
-    console.log("pass: "+vegeta.password_usuario);
-    console.log("tipo: "+vegeta.tipo_usuario);
-  });
-
 }
-
 
 
 //---------------------------------------------------------------------
@@ -271,10 +239,6 @@ router.post('/test', function(req, res, next) {
 
 });
 
-
-
-
-
 /* GET register page. */
 router.get('/registro', function (req, res, next) {
   console.log("home");
@@ -296,8 +260,6 @@ router.post('/registro', function (req, res, next) {
 
   };
 
-  var success = 0;
-
   registrarUsuario(data, function (success) {
 
     if (success == 1) {
@@ -307,10 +269,10 @@ router.post('/registro', function (req, res, next) {
     }
     else {
       console.log("Error en el registro");
-      res.sendFile(path.join(__dirname, '../', 'views', 'register_error.html'));
+      res.render("register_error");
+      //res.sendFile(path.join(__dirname, '../', 'views', 'register_error.html'));
     }
   });
-  res.redirect("/test");
 });
 
 
