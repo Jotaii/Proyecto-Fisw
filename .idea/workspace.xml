@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5f9339c9-a884-44fc-af4d-6d320127449e" name="Default" comment="Estructuras de home Asimilador y Adaptador(Acomodador)">
+    <list default="true" id="5f9339c9-a884-44fc-af4d-6d320127449e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/controllers.js" afterPath="$PROJECT_DIR$/public/js/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/auth.html" afterPath="$PROJECT_DIR$/views/auth.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/test.html" afterPath="$PROJECT_DIR$/views/test.html" />
     </list>
     <ignored path="Kolb.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -232,6 +229,7 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="AlfredoAlfi &lt;alfredo.silva.13@sansano.usm.cl&gt;" />
         <option value="Jotaii &lt;juanescalona1994@hotmail.com&gt;" />
       </list>
     </option>
@@ -501,12 +499,20 @@
       <workItem from="1477946316086" duration="5516000" />
       <workItem from="1478046756628" duration="5365000" />
       <workItem from="1478114386387" duration="3421000" />
-      <workItem from="1478121080966" duration="1136000" />
+      <workItem from="1478121080966" duration="1226000" />
     </task>
+    <task id="LOCAL-00001" summary="'fix' formulario">
+      <created>1478122279354</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1478122279354</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64194000" />
+    <option name="totallyTimeSpent" value="64284000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="6" />
@@ -564,7 +570,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Estructuras de home Convergente y Divergente" />
     <MESSAGE value="Estructuras de home Asimilador y Adaptador(Acomodador)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Estructuras de home Asimilador y Adaptador(Acomodador)" />
+    <MESSAGE value="'fix' formulario" />
+    <option name="LAST_COMMIT_MESSAGE" value="'fix' formulario" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
