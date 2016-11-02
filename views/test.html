@@ -53,7 +53,7 @@
 
 <form action="/test" method="post" enctype="application/x-www-form-urlencoded">
 
-    <div class="main" ng-controller="myCtrl">
+    <div class="main" ng-controller="testController">
         <div class="container">
 
             <div class="row">
@@ -1070,7 +1070,9 @@
 
             </div>
 
-            <button class="boton" type="submit">Enviar Encuesta</button>
+            <button class="boton" ng-click="igual()" type="submit">Enviar Encuesta</button>
+
+            <span ng-show="IsMatch">Debe ser un valor diferente por opción!</span>
 
         </div>
 
