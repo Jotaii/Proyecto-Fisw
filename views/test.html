@@ -53,7 +53,7 @@
 
 <form action="/test" method="post" enctype="application/x-www-form-urlencoded">
 
-    <div class="main" ng-controller="testController">
+    <div class="main" ng-controller="myController">
         <div class="container">
 
             <div class="row">
@@ -63,7 +63,7 @@
                     de cuatro formas distintas. Ordena las cuatro opciones de cada frase según pienses que se ajustan
                     a tu manera de aprender algo nuevo, tal vez en tu trabajo. Trata de pensar en situaciones recientes en
                     en las que te enfrentaste a algo nuevo. Numera con un 4 la terminación que mejor se ajuste
-                    a tu forma de apender y con un 1 la que peor se ajuste. Asegúrate de asignar un número a
+                    a tu forma de apender y con un 1 la que peor se ajuste. Asegúrate de asignar un número distinto a
                     todas las terminaciones de cada una de las 12 frases.</P>
             </div>
 
@@ -1070,9 +1070,9 @@
 
             </div>
 
-            <button class="boton" ng-click="igual()" type="submit">Enviar Encuesta</button>
+            <button class="boton" type="submit">Enviar Encuesta</button>
 
-            <span ng-show="IsMatch=false">Debe ser un valor diferente por opción!</span>
+
 
         </div>
 

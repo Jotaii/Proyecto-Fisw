@@ -98,6 +98,14 @@ function registrarUsuario(data, callback) {
   });
 }
 
+function interigual(a,b,c,d){
+  if (a == b || a == c ||
+      a == d || b == c ||
+      b == d || c == d){
+    return true;
+  }
+  return false;
+}
 
 //---------------------------------------------------------------------
 // RUTAS --------------------------------------------------------------
@@ -146,7 +154,7 @@ router.post('/', function(req, res, next) {
 router.get('/home', requireLogin, function(req, res, next) {
   console.log("home");
 
-  res.render("home", {user_session : req.session.user});
+  res.render("home", {user_session: req.session.user});
 
   //res.sendFile(path.join(__dirname, '../', 'views', 'home.html'));
 });
@@ -158,7 +166,7 @@ router.get('/auth', function(req, res, next) {
 
   var caca = "conchetumare";
 
-  res.render('auth', { excremento : caca });
+  res.render('auth', { excremento: caca });
 
   //res.sendFile(path.join(__dirname, '../', 'views', 'auth.html'));
 });
@@ -197,11 +205,27 @@ router.get('/home_convergente', function(req, res, next) {
 /*GET test page.*/
 router.get('/test', function(req, res, next) {
   console.log("test");
-  res.render('test');
+  res.render("test", {user_session : req.session.user});
 });
 
 /* POST test page. */
 router.post('/test', function(req, res, next) {
+
+  if (interigual(req.body.a1,req.body.b1,req.body.c1,req.body.d1)||
+      interigual(req.body.a2,req.body.b2,req.body.c2,req.body.d2)||
+      interigual(req.body.a3,req.body.b3,req.body.c3,req.body.d3)||
+      interigual(req.body.a4,req.body.b4,req.body.c4,req.body.d4)||
+      interigual(req.body.a5,req.body.b5,req.body.c5,req.body.d5)||
+      interigual(req.body.a6,req.body.b6,req.body.c6,req.body.d6)||
+      interigual(req.body.a7,req.body.b7,req.body.c7,req.body.d7)||
+      interigual(req.body.a8,req.body.b8,req.body.c8,req.body.d8)||
+      interigual(req.body.a9,req.body.b9,req.body.c9,req.body.d9)||
+      interigual(req.body.a10,req.body.b10,req.body.c10,req.body.d10)||
+      interigual(req.body.a11,req.body.b11,req.body.c11,req.body.d11)||
+      interigual(req.body.a12,req.body.b12,req.body.c12,req.body.d12)) {
+    console.log("Error en el Test, Respuestas iguales");
+    res.render("test_error");
+  }
 
   var EC1 = parseInt(req.body.a1)+parseInt(req.body.a2)+parseInt(req.body.a3)+parseInt(req.body.a4)+parseInt(req.body.a5)+parseInt(req.body.a6)+parseInt(req.body.a7)+parseInt(req.body.a8);
   var EC =EC1+parseInt(req.body.a9)+parseInt(req.body.a10)+parseInt(req.body.a11)+parseInt(req.body.a12) ;
@@ -218,22 +242,97 @@ router.post('/test', function(req, res, next) {
   console.log("caec: "+CAEC);
   console.log("eaor: "+EAOR);
 
+  var usuario = user_session
+  var db = require("../BD_connection","mysql-activerecord");
+  db.where({ nombre_usuario:usuario});
+  db.get('Alumno', function(err, results, fields){
+    var largoquery = results.length;
+    console.log("entramos al if del registro");
+  });
+
+
+
+
 
   if(CAEC < 4 && EAOR > 5){
     console.log("Alumno es Adaptador!");
+    var newData = {
+      rut_alumno : results.rut,
+      nombre_alumno :results.nombre,
+      apellido_p_alumno : results.appat,
+      apellido_m_alumno : results.apmat,
+      nac_alumno : results.fnac,
+      categoria_alumno : 1,
+      nombre_usuario : usuario
+    };
+
+    db.where({ nombre_usuario:usuario});
+    db.update('people', newData, function(err) {
+      if (!err) {
+        console.log('Updated!');
+      }
+    });
     res.redirect("/home_adaptador");
     //res.sendFile(path.join(__dirname, '../', 'views', 'home.html'));
   }
   else if(CAEC < 4 && EAOR < 6){
     console.log("Alumno es Divergente!");
+    var newData = {
+      rut_alumno : results.rut,
+      nombre_alumno :results.nombre,
+      apellido_p_alumno : results.appat,
+      apellido_m_alumno : results.apmat,
+      nac_alumno : results.fnac,
+      categoria_alumno : 2,
+      nombre_usuario : usuario
+    };
+
+    db.where({ nombre_usuario:usuario});
+    db.update('people', newData, function(err) {
+      if (!err) {
+        console.log('Updated!');
+      }
+    });
     res.redirect("/home_divergente");
   }
   else if(CAEC > 3 && EAOR < 6){
     console.log("Alumno es Asimilador!");
+    var newData = {
+      rut_alumno : results.rut,
+      nombre_alumno :results.nombre,
+      apellido_p_alumno : results.appat,
+      apellido_m_alumno : results.apmat,
+      nac_alumno : results.fnac,
+      categoria_alumno : 3,
+      nombre_usuario : usuario
+    };
+
+    db.where({ nombre_usuario:usuario});
+    db.update('people', newData, function(err) {
+      if (!err) {
+        console.log('Updated!');
+      }
+    });
     res.redirect("/home_asimilador");
   }
   else{
     console.log("Alumno es Convergente!");
+    var newData = {
+      rut_alumno : results.rut,
+      nombre_alumno :results.nombre,
+      apellido_p_alumno : results.appat,
+      apellido_m_alumno : results.apmat,
+      nac_alumno : results.fnac,
+      categoria_alumno : 4,
+      nombre_usuario : usuario
+    };
+
+    db.where({ nombre_usuario:usuario});
+    db.update('people', newData, function(err) {
+      if (!err) {
+        console.log('Updated!');
+      }
+    });
     res.redirect("/home_convergente");
   }
 
