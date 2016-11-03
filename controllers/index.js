@@ -381,5 +381,4 @@ router.get('/campo_electrico', function (req, res, next) {
 });
 
 
-
 module.exports = router;
