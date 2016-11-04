@@ -33,9 +33,13 @@ function Authenticate(user,pass,callback) {
 
         var user_i = rows[i].nombre_usuario;
         var pass_i = rows[i].password_usuario;
+        var tipo_i = rows[i].tipo_usuario;
 
-        if (user_i == user && pass_i == pass){
+        if (user_i == user && pass_i == pass && tipo_i == 0){
           return callback(1);
+        }
+        else if (user_i == user && pass_i == pass && tipo_i == 1){
+          return callback(2);
         }
       }
       return callback(0);
@@ -141,6 +145,12 @@ router.post('/', function(req, res, next) {
       res.redirect("/home");
       //res.sendFile(path.join(__dirname, '../', 'views', 'home.html'));
     }
+    else if (success == 2){
+      console.log("Usuario profesor logeado correctamente!");
+      sess.user = user;
+      console.log("session iniciada como: "+sess.user);
+      res.redirect("/home_profesor");
+    }
     else{
       console.log("Error autentificación");
       res.render("login_error");
@@ -159,6 +169,14 @@ router.get('/home', requireLogin, function(req, res, next) {
   //res.sendFile(path.join(__dirname, '../', 'views', 'home.html'));
 });
 
+/* GET home page. */
+router.get('/home_profesor', requireLogin, function(req, res, next) {
+  console.log("home_profesor");
+
+  res.render("home_profesor", {user_session: req.session.user});
+
+  //res.sendFile(path.join(__dirname, '../', 'views', 'home.html'));
+});
 
 /* GET auth page. */
 router.get('/auth', function(req, res, next) {
