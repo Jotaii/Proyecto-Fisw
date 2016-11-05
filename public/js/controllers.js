@@ -119,5 +119,23 @@ app.controller('testController', function($scope){
         premisa: '¿Que shiushia?',
         culo: "Mett adentro porfavor"
     };
+});
 
+app.controller('SelectCamposContenidos',function($scope){
+
+    $scope.MostrarDescripcion = function(response){
+
+    };
+    $scope.tipo_contenido = ['Motivación', 'Definicion de conceptos clave', 'Experimentos a realizar',
+    'Video motivacional', 'Que problema resuelve el topico','Datos necesario para los ejercicios del tema',
+    'Formulario', "Ejemplos", "Preguntas del tipo '¿Qué pasa si...?'", "Lluvia de ideas", "Analogías",
+    "Ejercicio de mapa conceptual", "Base Teórica", "Conocimientos Previos", "Principio y Teoría",
+    "Documentacion adicional", "Que aprenderas con el tópico", "Experimentación con explicación",
+    "Formulario con ejercicios"];
+    $scope.descripcion_tipo_contenido ={
+        Motivacion: "Se sugiere escribir un pequeño parrafo en el cual se explique de qué sirve abordar el tópico",
+        Definicion_de_conceptos_clave: "Se debe escribir la definicion de los conceptos claves para comprender la unidad en estudio",
+        Experimentos_a_realizar: ""
+
+    }
 });

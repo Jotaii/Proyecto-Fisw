@@ -198,7 +198,6 @@ router.get('/home_adaptador', function(req, res, next) {
 });
 
 
-
 /* GET home page. */
 router.get('/home_divergente', function(req, res, next) {
   console.log("home_divergente");
@@ -267,10 +266,6 @@ router.post('/test', function(req, res, next) {
     var largoquery = results.length;
     console.log("entramos al if del registro");
   });
-
-
-
-
 
   if(CAEC < 4 && EAOR > 5){
     console.log("Alumno es Adaptador!");
@@ -354,6 +349,12 @@ router.post('/test', function(req, res, next) {
     res.redirect("/home_convergente");
   }
 
+});
+
+/* GET agregar_contenido page. */
+router.get('/agregar_contenido', function(req, res, next) {
+  console.log("agregar_contenido");
+  res.render('agregar_contenido');
 });
 
 /* GET register page. */
