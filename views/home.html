@@ -34,29 +34,37 @@
         <div class="col-md-8">
 
             <div class="div_content_ramos container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <p class="titulo_curso">Mis ramos!</p>
+
+                <div style="margin-left: 15px;">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class="titulo_curso">Mis ramos!</p>
+                            <br>
+                            <p>Selecciona un ramo para ver sus contenidos.</p>
+                        </div>
+                        <div class="col-md-4 col-md-offset-4">
+                        </div>
                     </div>
-                    <div class="col-md-4 col-md-offset-4">
-                    </div>
-                </div>
-                <br><br>
+                    <br>
 
-                <div class="row">
+                    <div class="row">
 
-                    <% for(var i=0; i< nombres_ramos.length; i++) {%>
+                        <% for(var i=0; i< nombres_ramos.length; i++) {%>
 
-                        <div class="col-md-12" style="margin-top: 30px;">
+                        <div class="col-md-6" style="margin-top: 30px;">
                             <div class="imagen">
                                 <a href="/ramo/<%= id_ramos[i] %>"><img class="imagen_ramo" src="images/ramo_120.jpg" height="200px" width="450px" >
                                     <h2 class="texto_image_ramo"> <%= nombres_ramos[i] %> </h2></a>
                             </div>
                         </div>
 
-                    <% } %>
+                        <% } %>
+
+                    </div>
 
                 </div>
+
             </div>
 
         </div>

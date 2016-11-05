@@ -346,9 +346,14 @@ router.get('/ramo/:id_ramo/contenido/:id_contenido', function (req, res, next) {
   var id_ramo = req.params.id_ramo;
   var id_contenido = req.params.id_contenido;
 
-  // Aca se pueden hacer consultas para recuperar el objeto ramo y contenido entero
+  db.where({id_contenido: id_contenido});
+  db.get('Contenido', function (err, results_contenido, fields) {
 
-  res.render('contenidos_ramo', {user_session: req.session.user, id_ramo : id_ramo, id_contenido : id_contenido});
+    contenido = results_contenido[0];
+
+    res.render('contenidos_ramo', {user_session: req.session.user, id_ramo : id_ramo, contenido : contenido});
+
+  });
 });
 
 

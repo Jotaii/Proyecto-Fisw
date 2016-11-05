@@ -9,22 +9,20 @@
     <div class="div_content container">
         <div class="row">
             <div class="col-md-8">
-                <p class="titulo_curso">Aca desplegar el contenido segun tipo de usuario </p>
+                <p class="titulo_curso"> <%= contenido.nombre_contenido %> </p>
             </div>
             <div class="col-md-4 col-md-offset-4">
             </div>
         </div>
         <br><br>
         <div class="row">
-            <div class="col-md-12"><p class="sub_titulo">ja ja saludos:</p></div>
+            <div class="col-md-12"><p class="sub_titulo"> <%= contenido.descripcion %> </p></div>
         </div>
         <div class="row">
-            <div class="col-md-8">
+            <div class=" col-md-8">
                 <ul>
                     <br><br>
-                    <a href="campo_electrico">Vamos</a>
-                    <br><br>
-                    <a href="campo_magnetico">Que se puede!</a>
+                    <p> <%= contenido.informacion %> </p>
                 </ul>
             </div>
             <div class="col-md-4 col-md-offset-4"></div>
