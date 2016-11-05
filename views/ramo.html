@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include header2.html %>
+
+<body>
+
+<div class="container-fluid">
+    <div class="div_content container">
+        <div class="row">
+            <div class="col-md-8">
+                <p class="titulo_curso"> <%= ramo.nombre_ramo %> </p>
+            </div>
+            <div class="col-md-4 col-md-offset-4">
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-md-6"><p class="sub_titulo">Contenidos:</p></div>
+
+            <div class="col-md-6"><a class="btn btn-success" href="/ramo/<%= ramo.id_ramo %>/agregar_contenido/">Agregar Contenido</a></div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-8" style="margin-left: 50px;">
+                <ul>
+
+                    <% for(var i=0; i<contenidos.length; i++){ %>
+
+                        <% var contenido = contenidos[i] %>
+
+                        <br><br>
+                        <a class="texto" href="/ramo/<%= ramo.id_ramo %>/contenido/<%= contenido.id_contenido %>"> <%= contenido.nombre_contenido %> </a>
+
+                    <% } %>
+
+                </ul>
+            </div>
+            <div class="col-md-4 col-md-offset-4"></div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+<footer id="main-footer">Copyright © Uneed</footer>
+
+</html>
