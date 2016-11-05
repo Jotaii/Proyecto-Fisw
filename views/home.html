@@ -5,33 +5,67 @@
 
 <body>
 
-<div class="container">
-    <div class="div_content container">
-        <div class="row">
-            <div class="col-md-8">
-                <p class="titulo_curso">FIS 12O</p>
-            </div>
-            <div class="col-md-4 col-md-offset-4">
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="div_content_perfil container">
+                <div class="row">
+                    <div align="center" class="col-md-12">
+                        <img class="avatar_home" src="images/student.jpg">
+                    </div>
+                </div>
+                <div class="caja_perfil_home row">
+                    <div align="center" class="col-md-12">
+                        <ul>
+                            <li> <%= user_session %> </li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-        <br><br>
-        <div class="row">
-            <div class="col-md-12"><p class="sub_titulo">Contenidos:</p></div>
-        </div>
-        <div class="row">
-            <div class="col-md-8" style="margin-bottom: 200px">
-                <ul>
-                    <br><br>
-                    <a href="campo_electrico">Campo Electrico</a>
-                    <br><br>
-                    <a href="campo_magnetico">Campo Magnetico</a>
-                </ul>
+
+        <div class="col-md-1 col-md-offset-1"></div>
+
+        <div class="col-md-8">
+
+            <div class="div_content_ramos container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="titulo_curso">Mis ramos!</p>
+                    </div>
+                    <div class="col-md-4 col-md-offset-4">
+                    </div>
+                </div>
+                <br><br>
+
+                <div class="row">
+
+                    <% for(var i=0; i< nombres_ramos.length; i++) {%>
+
+                        <div class="col-md-12" style="margin-top: 30px;">
+                            <div class="imagen">
+                                <a href="/ramo/<%= id_ramos[i] %>"><img class="imagen_ramo" src="images/ramo_120.jpg" height="200px" width="450px" >
+                                    <h2 class="texto_image_ramo"> <%= nombres_ramos[i] %> </h2></a>
+                            </div>
+                        </div>
+
+                    <% } %>
+
+                </div>
             </div>
-            <div class="col-md-4 col-md-offset-4"></div>
+
         </div>
     </div>
+
 </div>
 
-
 </body>
+
+<footer id="main-footer">Copyright © Uneed</footer>
+
 </html>

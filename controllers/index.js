@@ -4,6 +4,7 @@ var path = require('path');
 var dialog = require('dialog');
 var crypto = require('crypto'); // Modulo para encriptar cosas
 var session;
+var db = require("../BD_connection","mysql-activerecord");
 
 // Funciones varias -------------------------------------------------------------
 
@@ -33,13 +34,9 @@ function Authenticate(user,pass,callback) {
 
         var user_i = rows[i].nombre_usuario;
         var pass_i = rows[i].password_usuario;
-        var tipo_i = rows[i].tipo_usuario;
 
-        if (user_i == user && pass_i == pass && tipo_i == 0){
+        if (user_i == user && pass_i == pass){
           return callback(1);
-        }
-        else if (user_i == user && pass_i == pass && tipo_i == 1){
-          return callback(2);
         }
       }
       return callback(0);
@@ -102,14 +99,6 @@ function registrarUsuario(data, callback) {
   });
 }
 
-function interigual(a,b,c,d){
-  if (a == b || a == c ||
-      a == d || b == c ||
-      b == d || c == d){
-    return true;
-  }
-  return false;
-}
 
 //---------------------------------------------------------------------
 // RUTAS --------------------------------------------------------------
@@ -143,13 +132,7 @@ router.post('/', function(req, res, next) {
       sess.user = user;
       console.log("session iniciada como: "+sess.user);
       res.redirect("/home");
-      //res.sendFile(path.join(__dirname, '../', 'views', 'home.html'));
-    }
-    else if (success == 2){
-      console.log("Usuario profesor logeado correctamente!");
-      sess.user = user;
-      console.log("session iniciada como: "+sess.user);
-      res.redirect("/home_profesor");
+
     }
     else{
       console.log("Error autentificación");
@@ -159,32 +142,13 @@ router.post('/', function(req, res, next) {
 });
 
 
-
-/* GET home page. */
-router.get('/home', requireLogin, function(req, res, next) {
-  console.log("home");
-
-  res.render("home", {user_session: req.session.user});
-
-  //res.sendFile(path.join(__dirname, '../', 'views', 'home.html'));
-});
-
-/* GET home page. */
-router.get('/home_profesor', requireLogin, function(req, res, next) {
-  console.log("home_profesor");
-
-  res.render("home_profesor", {user_session: req.session.user});
-
-  //res.sendFile(path.join(__dirname, '../', 'views', 'home.html'));
-});
-
 /* GET auth page. */
 router.get('/auth', function(req, res, next) {
   console.log("auth");
 
   var caca = "conchetumare";
 
-  res.render('auth', { excremento: caca });
+  res.render('auth', { excremento : caca });
 
   //res.sendFile(path.join(__dirname, '../', 'views', 'auth.html'));
 });
@@ -192,58 +156,42 @@ router.get('/auth', function(req, res, next) {
 
 
 /* GET home page. */
-router.get('/home_adaptador', function(req, res, next) {
+router.get('/home_adaptador', requireLogin,function(req, res, next) {
   console.log("home_adaptador");
-  res.render('home_adaptador');
+  res.render('home_adaptador',{user_session : req.session.user});
 });
 
 
 
 /* GET home page. */
-router.get('/home_divergente', function(req, res, next) {
+router.get('/home_divergente', requireLogin, function(req, res, next) {
   console.log("home_divergente");
-  res.render('home_divergente');
+  res.render('home_divergente', {user_session : req.session.user});
 });
 
 
 /* GET home page. */
-router.get('/home_asimilador', function(req, res, next) {
+router.get('/home_asimilador', requireLogin,function(req, res, next) {
   console.log("home_asimilador");
-  res.render('home_asimilador');
+  res.render('home_asimilador', {user_session : req.session.user});
 });
 
 
 /* GET home page. */
-router.get('/home_convergente', function(req, res, next) {
+router.get('/home_convergente', requireLogin, function(req, res, next) {
   console.log("home_convergente");
-  res.render('home_convergente');
+  res.render('home_convergente', {user_session : req.session.user});
 });
 
 
 /*GET test page.*/
 router.get('/test', function(req, res, next) {
   console.log("test");
-  res.render("test", {user_session : req.session.user});
+  res.render('test');
 });
 
 /* POST test page. */
 router.post('/test', function(req, res, next) {
-
-  if (interigual(req.body.a1,req.body.b1,req.body.c1,req.body.d1)||
-      interigual(req.body.a2,req.body.b2,req.body.c2,req.body.d2)||
-      interigual(req.body.a3,req.body.b3,req.body.c3,req.body.d3)||
-      interigual(req.body.a4,req.body.b4,req.body.c4,req.body.d4)||
-      interigual(req.body.a5,req.body.b5,req.body.c5,req.body.d5)||
-      interigual(req.body.a6,req.body.b6,req.body.c6,req.body.d6)||
-      interigual(req.body.a7,req.body.b7,req.body.c7,req.body.d7)||
-      interigual(req.body.a8,req.body.b8,req.body.c8,req.body.d8)||
-      interigual(req.body.a9,req.body.b9,req.body.c9,req.body.d9)||
-      interigual(req.body.a10,req.body.b10,req.body.c10,req.body.d10)||
-      interigual(req.body.a11,req.body.b11,req.body.c11,req.body.d11)||
-      interigual(req.body.a12,req.body.b12,req.body.c12,req.body.d12)) {
-    console.log("Error en el Test, Respuestas iguales");
-    res.render("test_error");
-  }
 
   var EC1 = parseInt(req.body.a1)+parseInt(req.body.a2)+parseInt(req.body.a3)+parseInt(req.body.a4)+parseInt(req.body.a5)+parseInt(req.body.a6)+parseInt(req.body.a7)+parseInt(req.body.a8);
   var EC =EC1+parseInt(req.body.a9)+parseInt(req.body.a10)+parseInt(req.body.a11)+parseInt(req.body.a12) ;
@@ -260,97 +208,22 @@ router.post('/test', function(req, res, next) {
   console.log("caec: "+CAEC);
   console.log("eaor: "+EAOR);
 
-  var usuario = user_session
-  var db = require("../BD_connection","mysql-activerecord");
-  db.where({ nombre_usuario:usuario});
-  db.get('Alumno', function(err, results, fields){
-    var largoquery = results.length;
-    console.log("entramos al if del registro");
-  });
-
-
-
-
 
   if(CAEC < 4 && EAOR > 5){
     console.log("Alumno es Adaptador!");
-    var newData = {
-      rut_alumno : results.rut,
-      nombre_alumno :results.nombre,
-      apellido_p_alumno : results.appat,
-      apellido_m_alumno : results.apmat,
-      nac_alumno : results.fnac,
-      categoria_alumno : 1,
-      nombre_usuario : usuario
-    };
-
-    db.where({ nombre_usuario:usuario});
-    db.update('people', newData, function(err) {
-      if (!err) {
-        console.log('Updated!');
-      }
-    });
     res.redirect("/home_adaptador");
-    //res.sendFile(path.join(__dirname, '../', 'views', 'home.html'));
+    //res.sendFile(path.join(__dirname, '../', 'views', 'prueba.html'));
   }
   else if(CAEC < 4 && EAOR < 6){
     console.log("Alumno es Divergente!");
-    var newData = {
-      rut_alumno : results.rut,
-      nombre_alumno :results.nombre,
-      apellido_p_alumno : results.appat,
-      apellido_m_alumno : results.apmat,
-      nac_alumno : results.fnac,
-      categoria_alumno : 2,
-      nombre_usuario : usuario
-    };
-
-    db.where({ nombre_usuario:usuario});
-    db.update('people', newData, function(err) {
-      if (!err) {
-        console.log('Updated!');
-      }
-    });
     res.redirect("/home_divergente");
   }
   else if(CAEC > 3 && EAOR < 6){
     console.log("Alumno es Asimilador!");
-    var newData = {
-      rut_alumno : results.rut,
-      nombre_alumno :results.nombre,
-      apellido_p_alumno : results.appat,
-      apellido_m_alumno : results.apmat,
-      nac_alumno : results.fnac,
-      categoria_alumno : 3,
-      nombre_usuario : usuario
-    };
-
-    db.where({ nombre_usuario:usuario});
-    db.update('people', newData, function(err) {
-      if (!err) {
-        console.log('Updated!');
-      }
-    });
     res.redirect("/home_asimilador");
   }
   else{
     console.log("Alumno es Convergente!");
-    var newData = {
-      rut_alumno : results.rut,
-      nombre_alumno :results.nombre,
-      apellido_p_alumno : results.appat,
-      apellido_m_alumno : results.apmat,
-      nac_alumno : results.fnac,
-      categoria_alumno : 4,
-      nombre_usuario : usuario
-    };
-
-    db.where({ nombre_usuario:usuario});
-    db.update('people', newData, function(err) {
-      if (!err) {
-        console.log('Updated!');
-      }
-    });
     res.redirect("/home_convergente");
   }
 
@@ -358,7 +231,6 @@ router.post('/test', function(req, res, next) {
 
 /* GET register page. */
 router.get('/registro', function (req, res, next) {
-  console.log("home");
   res.render("registro");
 });
 
@@ -382,7 +254,7 @@ router.post('/registro', function (req, res, next) {
     if (success == 1) {
       console.log("Usuario Registrado");
       res.redirect("/home");
-      //res.sendFile(path.join(__dirname, '../', 'views', 'home.html'));
+      //res.sendFile(path.join(__dirname, '../', 'views', 'prueba.html'));
     }
     else {
       console.log("Error en el registro");
@@ -393,9 +265,100 @@ router.post('/registro', function (req, res, next) {
 });
 
 
-/* GET register page. */
-router.get('/campo_electrico', function (req, res, next) {
-  res.render("campo_electrico");
+router.get('/home', requireLogin, function (req, res, next) {
+
+  if(!req.session.ramos){
+
+    nombres_ramos = [];
+    id_ramos = [];
+    var nombre_usuario = req.session.user;
+
+
+    db.where({ nombre_usuario : nombre_usuario });
+    db.get('Alumno', function(err, results_Alumno, fields) {
+
+      var alumno = results_Alumno[0];
+
+      db.where({ Alumnoid_alumno : alumno.id_alumno });
+      db.get('Ramo_Alumno', function(err, results_Ramo_Alumno, fields) {
+
+        Ramo_Alumno = results_Ramo_Alumno;
+
+        for(i=0;i<Ramo_Alumno.length; i++){
+
+          con = 0;
+
+          db.where({ id_ramo : Ramo_Alumno[i].Ramoid_ramo });
+          db.get('Ramo', function(err, results_Ramo, fields) {
+
+            ramo = results_Ramo[0];
+
+            console.log(ramo);
+
+            var nombre_ramo = ramo["nombre_ramo"];
+            var id_ramo = ramo["id_ramo"];
+
+            nombres_ramos.push(nombre_ramo);
+            id_ramos.push(id_ramo);
+
+            req.session.nombres_ramos = nombres_ramos;
+            req.session.id_ramos = id_ramos;
+
+            con++;
+
+            if(con == Ramo_Alumno.length){
+              res.render("home", {user_session : req.session.user, nombres_ramos : req.session.nombres_ramos,
+                id_ramos : req.session.id_ramos});
+            }
+
+          });
+        }
+      });
+    });
+  }
+
+});
+
+
+router.get('/ramo/:id_ramo', function (req, res, next) {
+
+  id_ramo = req.params.id_ramo;
+
+  db.where({id_ramo: id_ramo});
+  db.get('Contenido', function (err, results_contenido, fields) {
+
+    db.where({id_ramo: id_ramo});
+    db.get('Ramo', function (err, results_ramo, fields) {
+
+      ramo = results_ramo[0];
+
+      contenidos = results_contenido;
+
+      res.render("ramo", {user_session: req.session.user, ramo: ramo, contenidos: contenidos});
+
+    });
+  });
+});
+
+
+router.get('/ramo/:id_ramo/contenido/:id_contenido', function (req, res, next) {
+
+  var id_ramo = req.params.id_ramo;
+  var id_contenido = req.params.id_contenido;
+
+  // Aca se pueden hacer consultas para recuperar el objeto ramo y contenido entero
+
+  res.render('contenidos_ramo', {user_session: req.session.user, id_ramo : id_ramo, id_contenido : id_contenido});
+});
+
+
+router.get('/ramo/:id_ramo/agregar_contenido', function (req, res, next) {
+
+  var id_ramo = req.params.id_ramo;
+
+  // Aca se pueden hacer consultas para recuperar el objeto ramo y contenido entero
+
+  res.render('agregar_contenido', {user_session: req.session.user, id_ramo : id_ramo});
 });
 
 
