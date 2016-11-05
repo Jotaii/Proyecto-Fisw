@@ -162,6 +162,7 @@ router.get('/home_adaptador', requireLogin,function(req, res, next) {
 });
 
 
+
 /* GET home page. */
 router.get('/home_divergente', requireLogin, function(req, res, next) {
   console.log("home_divergente");
@@ -207,16 +208,6 @@ router.post('/test', function(req, res, next) {
   console.log("caec: "+CAEC);
   console.log("eaor: "+EAOR);
 
-<<<<<<< HEAD
-  var usuario = user_session
-  var db = require("../BD_connection","mysql-activerecord");
-  db.where({ nombre_usuario:usuario});
-  db.get('Alumno', function(err, results, fields){
-    var largoquery = results.length;
-    console.log("entramos al if del registro");
-  });
-=======
->>>>>>> 709985da77a02fb349948f7eeec4a534baf9a1dd
 
   if(CAEC < 4 && EAOR > 5){
     console.log("Alumno es Adaptador!");
@@ -236,12 +227,6 @@ router.post('/test', function(req, res, next) {
     res.redirect("/home_convergente");
   }
 
-});
-
-/* GET agregar_contenido page. */
-router.get('/agregar_contenido', function(req, res, next) {
-  console.log("agregar_contenido");
-  res.render('agregar_contenido');
 });
 
 /* GET register page. */
