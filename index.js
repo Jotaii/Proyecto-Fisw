@@ -147,4 +147,11 @@ router.post('/registro', function (req, res, next) {
     res.redirect("/test");
 });
 
+router.post('/upload', function(req,res){
+    console.log(req.body);
+    console.log(req.files);
+    res.json({success: true});
+});
+
+
 module.exports = router;

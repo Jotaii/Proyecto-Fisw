@@ -17,6 +17,7 @@
     "express-session": "^1.14.1",
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
+    "multer": "^1.2.0",
     "mysql": "^2.11.1",
     "mysql-activerecord": "^0.8.6",
     "nodemailer": "~2.6.x",

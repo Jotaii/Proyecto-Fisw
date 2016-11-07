@@ -106,7 +106,6 @@ function registrarUsuario(data, callback) {
 
 /* GET login page. */
 router.get('/', function(req, res, next) {
-  //CallVegeta();
 
   if(req.session){
     delete req.session;
@@ -253,7 +252,7 @@ router.post('/registro', function (req, res, next) {
 
     if (success == 1) {
       console.log("Usuario Registrado");
-      res.redirect("/home");
+      res.redirect("/test");
       //res.sendFile(path.join(__dirname, '../', 'views', 'prueba.html'));
     }
     else {

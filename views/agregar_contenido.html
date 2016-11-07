@@ -1,55 +1,106 @@
 <!DOCTYPE html>
 
-<% include header2.html %>
+<html lang="es" ng-app="MyApp">
+<head>
+    <title>Welcome to Kolb!</title>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/nav_styles.css" type="text/css">
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+    <script src="/js/controllers.js"></script>
+    <script src="/js/services/multipartForm.js"></script>
+    <script src="/js/controllers/submitController.js"></script>
+    <script src="/js/directives/FileModel.js"></script>
+</head>
+
+<header id="main-header">
+
+    <a href="/home"><img class="logo" src="/images/header-usm.png" height="70" width="700"></a>
+
+    <base href="/">
+    <nav>
+        <ul>
+            <li><a href="">Sesion iniciada como:<%= user_session %></a></li>
+            <a href=""><img class="icon" src="/images/facebook.png"></a>
+            <a href=""><img class="icon" src="/images/twitter.png"></a>
+        </ul>
+    </nav><!-- / nav -->
+
+</header><!-- / #main-header -->
 
 <body>
-<div class="container" ng-controller="SelectCamposContenidos">
+<div class="container" ng-controller="AddContCtrl">
     <div class="row Agregar_contenido">
         <h1 style="text-align: left; border-style: solid; border-width: 3px; padding-bottom: 10px;">Agregar Contenido</h1>
         <br><br>
-        <div class="Nombre_contenido col-md-5" style="border: 4px solid gainsboro; padding-left: 5%">
+        <div class="Nombre_contenido col-md-5" style="border: 4px solid gainsboro; padding-left: 5%" >
+            <br>
             <h3 style="border-bottom: solid 1px black; margin-bottom: 10px"> Nombre del contenido a agregar</h3>
-            <select name="NombreContenido" size="19" style="border: solid black 1px">
-                <option value="Motivacion">Motivacion</option>
-                <option value="Definicion_de_conceptos_clave">Definicion de conceptos clave</option>
-                <option value="Experimentos_a_realizar">Experimentos a realizar</option>
-                <option value="Video_motivacional">Video motivacional</option>
-                <option value="Que_problema_resuelve_el_topico">Qué problema resuelve el tópico</option>
-                <option value="Datos_necesarios_para_los_ejercicios_del_tema">Datos necesarios para los ejercicios del tema</option>
-                <option value="Formulario">Formulario</option>
-                <option value="Ejemplos">Ejemplos</option>
-                <option value="Preguntas_del_tipo_Que_pasa_si">Preguntas del tipo '¿Qué pasa si...?'</option>
-                <option value="Lluvia_de_ideas">Lluvia de ideas</option>
-                <option value="Analogias">Analogías</option>
-                <option value="Ejercicio_de_mapa_conceptual">Ejercicio de mapa conceptual</option>
-                <option value="Base_teorica">Base teórica</option>
-                <option value="Conocimientos_previos">Conocimientos Previos</option>
-                <option value="Principio_y_teoria">Principio y teoría</option>
-                <option value="Documentacion_adicional">Documentación adicional</option>
-                <option value="Que_aprenderas_con_el_topico">Qué aprenderas con el tópico</option>
-                <option value="Experimentacion_con_explicacion">Experimentacion con explicación</option>
-                <option value="Formulario_con_ejercicios">Formulario con ejercicios</option>
+            <select name="NombreContenido" size="19" style="border: solid black 1px" ng-model="indice">
+                <option value="0">Motivacion</option>
+                <option value="1">Definicion de conceptos clave</option>
+                <option value="2">Experimentos a realizar</option>
+                <option value="3">Video motivacional</option>
+                <option value="4">Qué problema resuelve el tópico</option>
+                <option value="5">Datos necesarios para los ejercicios del tema</option>
+                <option value="6">Formulario</option>
+                <option value="7">Ejemplos</option>
+                <option value="8">Preguntas del tipo '¿Qué pasa si...?'</option>
+                <option value="9">Lluvia de ideas</option>
+                <option value="10">Analogías</option>
+                <option value="11">Ejercicio de mapa conceptual</option>
+                <option value="12">Base teórica</option>
+                <option value="13">Conocimientos Previos</option>
+                <option value="14">Principio y teoría</option>
+                <option value="15">Documentación adicional</option>
+                <option value="16">Qué aprenderas con el tópico</option>
+                <option value="17">Experimentacion con explicación</option>
+                <option value="18">Formulario con ejercicios</option>
             </select>
 
-            <button type="button" class="btn btn-info" ng-click="MostrarDescripcion" style="margin-top: 10px; margin-bottom: 10px">Seleccionar</button>
+            <button type="button" class="btn btn-info" ng-click="MostrarDescripcion()" style="margin-top: 10px; margin-bottom: 10px">Seleccionar</button>
         </div>
 
-        <div class="Descripción_tipo_contenido col-md-offset-1 col-md-6" style=" min-height: 200px; border: 4px solid gainsboro" ng-controller="SelectCamposContenidos" >
-            <h3 style="border-bottom: solid 1px black"> Descripcion del contenido</h3>
-                {{ descripcion_tipo_contenido.Motivacion }}
+        <div class="Descripción_tipo_contenido col-md-offset-1 col-md-6" style=" min-height: 200px; border: 4px solid gainsboro" >
+            <br>
+            <h3 style="border-bottom: solid 1px black"> Descripcion del contenido: {{nombre}}</h3>
+            <br>
+            {{descripcion}}
+            <br><br><br><br><br><br>
+            <form method="post" enctype="multipart/form-data" ng-controller="submitController">
+                <input class="btn btn-info" type="file" name="MyFile"/> <!--file-model="customer.file"-->
+                <br>
+                <input class="btn btn-danger" type="submit" name="submit" value="Subir contenido <<NO HABILITADO>>">
+
+            </form>
+            <br><br><br>
         </div>
     </div>
 
         <br> <br>
     <div class="row Contenido" style="margin-top: 2%">
         <div class="Contenido_Mismo col-md-offset-1 col-md-10" style=" min-height: 200px; border: 4px solid gainsboro">
+            <br>
             <h3 style="border-bottom: solid 1px black"> Contenido</h3>
             <br>
-            Escriba aqui el contenido que desea agregar
+            <input class= "col-md-12" style= "min-height: 120px" type="text" name="entradaTexto" ng-model = textoPlano>
+            <input class="btn btn-danger col-md-offset-7" ng-click="subirContenido()" type="submit" name="enviar" value="Subir contenido en texto<<NO HABILITADO>>">
     </div>
         </div>
     </div>
 </div>
+
+
+
 </body>
 
 <footer id="main-footer" class="row-md-1">Copyright © Uneed</footer>
