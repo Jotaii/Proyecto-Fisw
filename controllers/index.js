@@ -128,10 +128,16 @@ router.post('/', function(req, res, next) {
 
     if(success == 1){
       console.log("Usuario logeado correctamente!");
-      sess.user = user;
-      console.log("session iniciada como: "+sess.user);
-      res.redirect("/home");
 
+      db.where({nombre_usuario: user});
+      db.get('Usuario', function (err, results, fields) {
+
+        obj_usuario = results[0];
+
+        sess.user = obj_usuario;
+        console.log("session iniciada como: "+sess.user.nombre_usuario);
+        res.redirect("/home");
+      });
     }
     else{
       console.log("Error autentificación");
@@ -234,6 +240,12 @@ router.get('/registro', function (req, res, next) {
 });
 
 
+/* GET register page. */
+router.get('/registro_profe', function (req, res, next) {
+  res.render("registro_profe");
+});
+
+
 /* POST register page. */
 router.post('/registro', function (req, res, next) {
 
@@ -270,7 +282,7 @@ router.get('/home', requireLogin, function (req, res, next) {
 
     nombres_ramos = [];
     id_ramos = [];
-    var nombre_usuario = req.session.user;
+    var nombre_usuario = req.session.user.nombre_usuario;
 
 
     db.where({ nombre_usuario : nombre_usuario });
