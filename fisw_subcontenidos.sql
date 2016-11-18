@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.30, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.31, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: fisw
 -- ------------------------------------------------------
--- Server version	5.6.30-1
+-- Server version	5.6.31-0ubuntu0.15.10.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -35,7 +35,7 @@ CREATE TABLE `Alumno` (
   PRIMARY KEY (`id_alumno`),
   UNIQUE KEY `id_alumno` (`id_alumno`),
   UNIQUE KEY `rut_alumno` (`rut_alumno`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `Alumno` (
 
 LOCK TABLES `Alumno` WRITE;
 /*!40000 ALTER TABLE `Alumno` DISABLE KEYS */;
-INSERT INTO `Alumno` VALUES (1,'000000010','Federico','Santa Maria','Carrera','1845-08-15',0,NULL,'');
+INSERT INTO `Alumno` VALUES (1,'000000010','Federico','Santa Maria','Carrera','1845-08-15',0,NULL,''),(2,'189360517','Francisco','Perez','Castro','0000-00-00',0,'1','goku'),(3,'12312312','vegeta','perez','castro','2016-11-10',0,NULL,'vegeta.perez.undefined'),(4,'12.312.312-9','gohan','perez','castro','2016-11-18',0,NULL,'gohan.perez.312'),(5,'18.936.051-7','Gotens','perez','castro','2016-11-19',0,NULL,'Gotens.perez.936'),(6,'12.312.312-7','Francisco','Mena','Toro','2016-11-19',0,NULL,'Francisco.Mena.312');
 /*!40000 ALTER TABLE `Alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,16 +57,15 @@ DROP TABLE IF EXISTS `Contenido`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Contenido` (
   `id_contenido` int(10) NOT NULL AUTO_INCREMENT,
-  `multimedia` text,
-  `informacion` text,
   `descripcion` text,
   `categoria1_cont` int(1) NOT NULL DEFAULT '0',
   `categoria2_cont` int(1) NOT NULL DEFAULT '0',
   `categoria3_cont` int(1) NOT NULL DEFAULT '0',
   `categoria4_cont` int(1) NOT NULL DEFAULT '0',
   `id_ramo` int(10) NOT NULL,
+  `nombre_contenido` varchar(100) DEFAULT NULL,
   UNIQUE KEY `id_contenido` (`id_contenido`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,6 +74,7 @@ CREATE TABLE `Contenido` (
 
 LOCK TABLES `Contenido` WRITE;
 /*!40000 ALTER TABLE `Contenido` DISABLE KEYS */;
+INSERT INTO `Contenido` VALUES (1,'Curso de introduccion a la fisica clasica',1,1,1,1,2,'Cultura de la fisica'),(2,'Curso que ayuda a catarsear',0,1,1,1,2,'Catarsis de la fisica'),(3,'Aprenda sexualidad junto al doctor vegeta',0,0,1,0,2,'Estrogenos fisica'),(5,'Curso que trata de la fisica cuantica y la fisica relativista',1,1,1,1,1,'Relatividad General');
 /*!40000 ALTER TABLE `Contenido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,7 +173,7 @@ CREATE TABLE `Ramo` (
   `semestre_ramo` varchar(6) NOT NULL,
   `departamento` varchar(30) NOT NULL,
   PRIMARY KEY (`id_ramo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,6 +182,7 @@ CREATE TABLE `Ramo` (
 
 LOCK TABLES `Ramo` WRITE;
 /*!40000 ALTER TABLE `Ramo` DISABLE KEYS */;
+INSERT INTO `Ramo` VALUES (1,'Fis 140','4','Fisica'),(2,'Fis 110','3','Fisica'),(3,'Fis 100','2','Fisica');
 /*!40000 ALTER TABLE `Ramo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -204,7 +205,35 @@ CREATE TABLE `Ramo_Alumno` (
 
 LOCK TABLES `Ramo_Alumno` WRITE;
 /*!40000 ALTER TABLE `Ramo_Alumno` DISABLE KEYS */;
+INSERT INTO `Ramo_Alumno` VALUES (1,1),(2,1),(3,1),(2,2),(3,2),(1,2);
 /*!40000 ALTER TABLE `Ramo_Alumno` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Sub_Contenido`
+--
+
+DROP TABLE IF EXISTS `Sub_Contenido`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Sub_Contenido` (
+  `id_subcontenido` int(11) DEFAULT NULL,
+  `tipo_subcontenido` varchar(100) DEFAULT NULL,
+  `ruta_contenido` varchar(500) DEFAULT NULL,
+  `id_contenido` int(11) DEFAULT NULL,
+  KEY `id_cont` (`id_contenido`),
+  CONSTRAINT `Sub_Contenido_ibfk_1` FOREIGN KEY (`id_contenido`) REFERENCES `Contenido` (`id_contenido`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Sub_Contenido`
+--
+
+LOCK TABLES `Sub_Contenido` WRITE;
+/*!40000 ALTER TABLE `Sub_Contenido` DISABLE KEYS */;
+INSERT INTO `Sub_Contenido` VALUES (1,'Ejercicio','/',1),(2,'Motivacion','/',1),(3,'Analogias','/analogias',1),(4,'Definicion de conceptos clave','/conceptos clave',1),(4,'Experimentos a realizar','/experimentos_a_realizar',1),(5,'Que aprenderas con el topico','/aprendere_con_el_topico',1),(6,'Video motivacional','/video_motivacional1',1),(7,'Video motivacional','/video_motivacional2',1),(8,'Video motivacional','/video_motivacional3',1),(8,'Base teorica','/base_teorica',1),(9,'Conocimientos previos','/conocimiento_previo1',1),(10,'Conocimientos previos','/conocimiento_previo2',1),(11,'Principio y teoria','/principio_teoria',1),(12,'Documentacion adicional','/documento1',1),(13,'Documentacion adicional','/documento2',1),(14,'Documentacion adicional','/documento3',1),(15,'Que problema resuelve el topico','/que_problema_resuelve',1),(16,'Datos necesarios para los ejercicios del tema','/datos_necesarios1',1),(17,'Datos necesarios para los ejercicios del tema','/datos_necesarios2',1),(18,'Ejemplos','/ejemplo1',1),(19,'Ejemplos','/ejemplo2',1),(20,'Preguntas del tipo \'Que pasa si...?\'','/que_pasa_si',1),(21,'Lluvia de ideas','/lluvia_idea1',1),(22,'Lluvia de ideas','/lluvia_idea2',1),(23,'Lluvia de ideas','/lluvia_idea3',1),(24,'Lluvia de ideas','/lluvia_idea4',1),(25,'Lluvia de ideas','/lluvia_idea5',1),(26,'Lluvia de ideas','/lluvia_idea6',1),(27,'Lluvia de ideas','/lluvia_idea7',1),(28,'Lluvia de ideas','/lluvia_idea8',1),(29,'Analogias','/analogia2',1),(30,'Experimentos a realizar','/exp_a_realizar2',1),(31,'Experimentos a realizar','/exp_a_realizar3',1),(32,'Experimentos a realizar','/exp_a_realizar4',1),(33,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual1',1),(34,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual2',1),(35,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual3',1),(36,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual4',1),(37,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual5',1),(38,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual6',1),(39,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual7',1),(40,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual8',1),(41,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual9',1),(42,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual10',1),(43,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual11',1),(44,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual12',1),(45,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual13',1),(46,'Ejercicio del mapa conceptual','/ejer_mapa_conceptual14',1);
+/*!40000 ALTER TABLE `Sub_Contenido` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -218,8 +247,10 @@ CREATE TABLE `Usuario` (
   `nombre_usuario` varchar(50) NOT NULL,
   `password_usuario` text NOT NULL,
   `tipo_usuario` int(1) NOT NULL DEFAULT '0',
+  `mail_usuario` varchar(100) NOT NULL,
   PRIMARY KEY (`nombre_usuario`),
-  UNIQUE KEY `nombre_usuario` (`nombre_usuario`)
+  UNIQUE KEY `nombre_usuario` (`nombre_usuario`),
+  UNIQUE KEY `mail_usuario` (`mail_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -229,6 +260,7 @@ CREATE TABLE `Usuario` (
 
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
+INSERT INTO `Usuario` VALUES ('Francisco.Mena.312','12345',0,'francisco.mena.13@sansano.usm.cl'),('gohan.perez.312','12345',0,'prueba@prueba.com'),('goku','12345',1,'goku@goku.com'),('Gotens.perez.936','12345',0,'aja@aja.com'),('Palito.palotes.312','12345',0,'caca@caca.com'),('vegeta.perez.undefined','12345',0,'asdasdas@asd.com');
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -241,4 +273,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-09 14:01:55
+-- Dump completed on 2016-11-18  1:47:23

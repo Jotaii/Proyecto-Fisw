@@ -22,7 +22,7 @@
             <div class=" col-md-8">
                 <ul>
                     <br><br>
-                    <p> <%= contenido.informacion %> </p>
+                    <p> aca estaba la info </p>
                 </ul>
             </div>
             <div class="col-md-4 col-md-offset-4"></div>
@@ -32,13 +32,13 @@
         <div class="row">
 
             <% if(user_session.tipo_usuario == 1) { %>
-                <% include contenido_adaptador.html %>
-            <% } else if(user_session.tipo_usuario == 2) { %>
-                <% include contenido_asimilador.html %>
-            <% } else if(user_session.tipo_usuario == 3) { %>
-                <% include contenido_convergente.html %>
-            <% } else if(user_session.tipo_usuario == 4) { %>
                 <% include contenido_divergente.html %>
+            <% } else if(user_session.tipo_usuario == 2) { %>
+                <% include contenido_adaptador.html %>
+            <% } else if(user_session.tipo_usuario == 3) { %>
+                <% include contenido_asimilador.html %>
+            <% } else if(user_session.tipo_usuario == 4) { %>
+                <% include contenido_convergente.html %>
             <% } %>
 
         </div>

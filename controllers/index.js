@@ -107,9 +107,11 @@ function registrarUsuario(data, callback) {
 /* GET login page. */
 router.get('/', function(req, res, next) {
 
-  if(req.session){
-    delete req.session;
+  if(req.session.user){
+    res.redirect("/home");
   }
+
+  console.log(req.session);
 
   res.render('index');
 
@@ -284,7 +286,6 @@ router.get('/home', requireLogin, function (req, res, next) {
     id_ramos = [];
     var nombre_usuario = req.session.user.nombre_usuario;
 
-
     db.where({ nombre_usuario : nombre_usuario });
     db.get('Alumno', function(err, results_Alumno, fields) {
 
@@ -295,35 +296,44 @@ router.get('/home', requireLogin, function (req, res, next) {
 
         Ramo_Alumno = results_Ramo_Alumno;
 
-        for(i=0;i<Ramo_Alumno.length; i++){
+        if(Ramo_Alumno.length != 0){
 
-          con = 0;
+          for(i=0;i<Ramo_Alumno.length; i++){
 
-          db.where({ id_ramo : Ramo_Alumno[i].Ramoid_ramo });
-          db.get('Ramo', function(err, results_Ramo, fields) {
+            con = 0;
 
-            ramo = results_Ramo[0];
+            db.where({ id_ramo : Ramo_Alumno[i].Ramoid_ramo });
+            db.get('Ramo', function(err, results_Ramo, fields) {
 
-            console.log(ramo);
+              ramo = results_Ramo[0];
 
-            var nombre_ramo = ramo["nombre_ramo"];
-            var id_ramo = ramo["id_ramo"];
+              console.log(ramo);
 
-            nombres_ramos.push(nombre_ramo);
-            id_ramos.push(id_ramo);
+              var nombre_ramo = ramo["nombre_ramo"];
+              var id_ramo = ramo["id_ramo"];
 
-            req.session.nombres_ramos = nombres_ramos;
-            req.session.id_ramos = id_ramos;
+              nombres_ramos.push(nombre_ramo);
+              id_ramos.push(id_ramo);
 
-            con++;
+              req.session.nombres_ramos = nombres_ramos;
+              req.session.id_ramos = id_ramos;
 
-            if(con == Ramo_Alumno.length){
-              res.render("home", {user_session : req.session.user, nombres_ramos : req.session.nombres_ramos,
-                id_ramos : req.session.id_ramos});
-            }
+              con++;
 
-          });
+              if(con == Ramo_Alumno.length){
+                console.log(req.session.nombres_ramos);
+                res.render("home", {user_session : req.session.user, nombres_ramos : req.session.nombres_ramos,
+                  id_ramos : req.session.id_ramos});
+              }
+
+            });
+          }
         }
+        else{
+          res.render("home", {user_session : req.session.user, nombres_ramos : [],
+            id_ramos : req.session.id_ramos});
+        }
+
       });
     });
   }
@@ -362,7 +372,105 @@ router.get('/ramo/:id_ramo/contenido/:id_contenido', function (req, res, next) {
 
     contenido = results_contenido[0];
 
-    res.render('contenidos_ramo', {user_session: req.session.user, id_ramo : id_ramo, contenido : contenido});
+    db.where({id_contenido: contenido.id_contenido});
+    db.get('Sub_Contenido', function (err, results_subcontenido, fields) {
+
+      sub_contenidos = results_subcontenido;
+
+      // Para almacenar los subcontenidos si es que existen
+      var motivacion = [];
+      var def_conceptos = [];
+      var exp_a_realizar = [];
+      var video_motivacional = [];
+      var que_problema_resuelve = [];
+      var datos_necesarios_para_ejercicio = [];
+      var formulario = [];
+      var ejemplos = [];
+      var preguntas_del_tipo = [];
+      var lluvia_ideas = [];
+      var analogias = [];
+      var ejercicio_mapa_conceptual = [];
+      var base_teorica = [];
+      var conocimientos_previos = [];
+      var principio_teoria = [];
+      var documentacion_adicional = [];
+      var que_aprenderas_topico = [];
+      var experimentacion_explicacion = [];
+      var formulario_ejercicios = [];
+
+      for(var i=0;i<sub_contenidos.length;i++){
+        sub_contenido = sub_contenidos[i];
+
+        if(sub_contenido.tipo_subcontenido == "Motivacion"){
+          motivacion.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Definicion de conceptos clave"){
+          def_conceptos.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Experimentos a realizar"){
+          exp_a_realizar.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Video motivacional"){
+          video_motivacional.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Que problema resuelve el topico"){
+          que_problema_resuelve.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Datos necesarios para los ejercicios del tema"){
+          datos_necesarios_para_ejercicio.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Formulario"){
+          formulario.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Ejemplos"){
+          ejemplos.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Preguntas del tipo 'Que pasa si...?'"){
+          preguntas_del_tipo.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Lluvia de ideas"){
+          lluvia_ideas.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Analogias"){
+          analogias.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Ejercicio del mapa conceptual"){
+          ejercicio_mapa_conceptual.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Base teorica"){
+          base_teorica.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Conocimientos previos"){
+          conocimientos_previos.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Principio y teoria"){
+          principio_teoria.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Documentacion adicional"){
+          documentacion_adicional.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Que aprenderas con el topico"){
+          que_aprenderas_topico.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Experimentacion con explicacion"){
+          experimentacion_explicacion.push(sub_contenido);
+        }
+        else if(sub_contenido.tipo_subcontenido == "Formulario con ejercicios"){
+          formulario_ejercicios.push(sub_contenido);
+        }
+      }
+
+      res.render('contenidos_ramo', {user_session: req.session.user, id_ramo : id_ramo, contenido : contenido
+        ,motivacion : motivacion, def_conceptos : def_conceptos, exp_a_realizar : exp_a_realizar,
+        video_motivacional : video_motivacional, que_problema_resuelve : que_problema_resuelve,
+        datos_necesarios_para_ejercicio : datos_necesarios_para_ejercicio, formulario : formulario,
+        ejemplos : ejemplos, preguntas_del_tipo : preguntas_del_tipo, lluvia_ideas : lluvia_ideas,
+        analogias : analogias, ejercicio_mapa_conceptual : ejercicio_mapa_conceptual,
+        base_teorica : base_teorica, conocimientos_previos : conocimientos_previos,
+        principio_teoria : principio_teoria, documentacion_adicional : documentacion_adicional,
+        que_aprenderas_topico : que_aprenderas_topico, experimentacion_explicacion : experimentacion_explicacion,
+        formulario_ejercicios : formulario_ejercicios});
+    });
 
   });
 });

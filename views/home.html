@@ -50,15 +50,21 @@
 
                     <div class="row">
 
-                        <% for(var i=0; i< nombres_ramos.length; i++) {%>
+                        <% if(nombres_ramos.length != 0){ %>
 
-                        <div class="col-md-6" style="margin-top: 30px;">
-                            <div class="imagen">
-                                <a href="/ramo/<%= id_ramos[i] %>"><img class="imagen_ramo" src="images/ramo_120.jpg" height="200px" width="450px" >
-                                    <h2 class="texto_image_ramo"> <%= nombres_ramos[i] %> </h2></a>
+                            <% for(var i=0; i< nombres_ramos.length; i++) {%>
+
+                            <div class="col-md-6" style="margin-top: 30px;">
+                                <div class="imagen">
+                                    <a href="/ramo/<%= id_ramos[i] %>"><img class="imagen_ramo" src="images/ramo_120.jpg" height="200px" width="450px" >
+                                        <h2 class="texto_image_ramo"> <%= nombres_ramos[i] %> </h2></a>
+                                </div>
                             </div>
-                        </div>
 
+                            <% } %>
+
+                        <% } else { %>
+                            <p>No tienes cursos inscritos!</p>
                         <% } %>
 
                     </div>
