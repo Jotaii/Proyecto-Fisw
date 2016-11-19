@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var multer = require('multer');
+var images = require('./index');
 
 
 // Definicion de controladores---------------------------------------------
@@ -28,6 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
+app.use("/images", images);
 //app.use(multer({dest:'./uploads/'}));
 
 // Sesion de usuarios -----------------------------------------------------
@@ -67,6 +69,7 @@ if (app.get('env') === 'development') {
   });
 }
 
+
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
@@ -75,7 +78,6 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: {}
   });
+  console.log(err.status);
 });
-
-
 module.exports = app;

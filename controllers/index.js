@@ -104,6 +104,38 @@ function registrarUsuario(data, callback) {
 // RUTAS --------------------------------------------------------------
 //---------------------------------------------------------------------
 
+router.get("agregar_contenido", function(req,res){
+  res.send("Images Route");
+});
+
+router.get('/upload', function (req, res) {
+  res.sendfile("../views/agregar_contenido.html");
+});
+
+router.post('/upload', function (req, res) {
+  var multiparty = require('multiparty');
+  var form = new multiparty.Form();
+
+  form.parse(req, function(err, fields, files){
+    var img = files.images[0];
+    var fs = require('fs');
+
+    fs.readFile(img.path, function(err, data){
+      var path = "./public/uploads/" +img.originalFilename;
+
+      fs.writeFile(path, data, function(error){
+        if(error) console.log(error);
+
+        res.send("UploadSuccess")
+      });
+    });
+
+  });
+
+});
+
+
+
 /* GET login page. */
 router.get('/', function(req, res, next) {
 
@@ -147,6 +179,7 @@ router.post('/', function(req, res, next) {
     }
   });
 });
+
 
 
 /* GET auth page. */
@@ -484,6 +517,5 @@ router.get('/ramo/:id_ramo/agregar_contenido', function (req, res, next) {
 
   res.render('agregar_contenido', {user_session: req.session.user, id_ramo : id_ramo});
 });
-
 
 module.exports = router;
