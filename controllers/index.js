@@ -85,13 +85,15 @@ function registrarUsuario(data, callback) {
       db.insert('Alumno', insercion_alumno, function(err) {
           if (err) {
               console.log("ERROR EN LA BASE DE DATOS");
+              return callback(0);
           }
           else {
               console.log('Alumno '+ data.nombre + " "+ data.appat + " "+ data.apmat + " agregado satisfactoriamente");
+              return callback(1);
           }
 
       });
-        return callback(1);
+
     }
     else{
         console.log("entramos al else del registro");
@@ -123,7 +125,13 @@ router.post('/upload', function (req, res) {
 
     fs.readFile(img.path, function(err, data){
       var path = "./public/uploads/" +img.originalFilename;
+      /*var db = require("../BD_connection","mysql-activerecord");
+      db.where({nombre_usuario: req.session.user.nombre_usuario});
+      db.get('Usuario', function (err, results, fields) {
+        var NewData = {
 
+        }
+      }*/
       fs.writeFile(path, data, function(error){
         if(error) console.log(error);
 
@@ -168,16 +176,20 @@ router.post('/', function(req, res, next) {
         sess.user = obj_usuario;
         console.log("session iniciada como: "+sess.user.nombre_usuario);
 
+        if(results[0].tipo_usuario == 0){
+          db2.where({categoria_alumno:0, nombre_usuario: sess.user.nombre_usuario});
+          db2.get('Alumno',function(err,resultado,fields){
+            var largo = resultado.length;
+            if(largo==1){
+              res.redirect('/test');
+            }else{
+              res.redirect("/home");
+            }
+          });
+        } else {
+          res.redirect("/home");
+        }
 
-        db2.where({categoria_alumno:0, nombre_usuario: sess.user.nombre_usuario});
-        db2.get('Alumno',function(err,resultado,fields){
-          var largo = resultado.length;
-          if(largo==1){
-            res.redirect('/test');
-          }else{
-            res.redirect("/home");
-          }
-        });
 
       });
     }
