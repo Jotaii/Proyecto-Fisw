@@ -103,6 +103,48 @@ function registrarUsuario(data, callback) {
 }
 
 
+
+//Funcion para registrarUsuario con activerecord
+function inscribirRamo(ramo, user, callback) {
+
+
+  db.where({ nombre_usuario: user.nombre_usuario });
+  db.get('Alumno', function(err, results_alumno, fields){
+
+    alumno = results_alumno[0];
+
+    db.where({ Ramoid_ramo: ramo.id_ramo, Alumnoid_alumno: alumno.id_alumno});
+    db.get('Ramo_Alumno', function(err, results_ramoAlumno, fields){
+
+      var inscripcion = results_ramoAlumno;
+
+      if (inscripcion.length == 0){
+
+        var insercion_inscripcion = {
+          Ramoid_ramo : ramo.id_ramo,
+          Alumnoid_alumno : alumno.id_alumno};
+
+        db.insert('Ramo_Alumno', insercion_inscripcion, function(err) {
+
+          if (err) {
+            console.log("ERROR EN LA BASE DE DATOS");
+          }
+          else {
+            console.log('Se inserto la inscripcion!');
+            return callback(1);
+          }
+        });
+      }
+      else{
+        return callback(0);
+      }
+    });
+  });
+}
+
+
+
+
 //---------------------------------------------------------------------
 // RUTAS --------------------------------------------------------------
 //---------------------------------------------------------------------
@@ -194,8 +236,9 @@ router.post('/', function(req, res, next) {
       });
     }
     else{
-      console.log("Error autentificación");
-      res.render("login_error");
+      var mensaje = "Usuario o contraseña incorrectas!!";
+      var ruta_a_volver = "/";
+      res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
     }
   });
 });
@@ -211,36 +254,6 @@ router.get('/auth', function(req, res, next) {
   res.render('auth', { excremento : caca });
 
   //res.sendFile(path.join(__dirname, '../', 'views', 'auth.html'));
-});
-
-
-
-/* GET home page. */
-router.get('/home_adaptador', requireLogin,function(req, res, next) {
-  console.log("home_adaptador");
-  res.render('home_adaptador',{user_session : req.session.user});
-});
-
-
-
-/* GET home page. */
-router.get('/home_divergente', requireLogin, function(req, res, next) {
-  console.log("home_divergente");
-  res.render('home_divergente', {user_session : req.session.user});
-});
-
-
-/* GET home page. */
-router.get('/home_asimilador', requireLogin,function(req, res, next) {
-  console.log("home_asimilador");
-  res.render('home_asimilador', {user_session : req.session.user});
-});
-
-
-/* GET home page. */
-router.get('/home_convergente', requireLogin, function(req, res, next) {
-  console.log("home_convergente");
-  res.render('home_convergente', {user_session : req.session.user});
 });
 
 
@@ -366,14 +379,12 @@ router.post('/registro', function (req, res, next) {
   registrarUsuario(data, function (success) {
 
     if (success == 1) {
-      console.log("Usuario Registrado");
       res.redirect("/");
-      //res.sendFile(path.join(__dirname, '../', 'views', 'prueba.html'));
     }
     else {
-      console.log("Error en el registro");
-      res.render("register_error");
-      //res.sendFile(path.join(__dirname, '../', 'views', 'register_error.html'));
+      var mensaje = "El correo o rut ingresado ya se encuentra registrado!";
+      var ruta_a_volver = "/registro";
+      res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
     }
   });
 });
@@ -440,6 +451,46 @@ router.get('/home', requireLogin, function (req, res, next) {
   }
 
 });
+
+
+
+router.get('/inscribir_ramo',requireLogin, function (req, res, next) {
+
+  db.get('Ramo', function (err, results, fields) {
+
+    ramos = results;
+
+    res.render("inscribir_ramo", {user_session: req.session.user, ramos : ramos});
+
+  });
+});
+
+
+router.post('/inscribir_ramo',requireLogin, function (req, res, next) {
+
+  var id_ramo_inscripcion = req.body.ramo_inscripcion;
+
+  db.where({id_ramo: id_ramo_inscripcion});
+  db.get('Ramo', function (err, results, fields) {
+
+    ramo = results[0];
+
+    inscribirRamo(ramo, req.session.user, function (success) {
+
+      if (success == 1) {
+        res.redirect("/home");
+      }
+      else {
+        var mensaje = "Ya estas inscrito en este ramo!";
+        var ruta_a_volver = "/inscribir_ramo";
+        res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
+      }
+
+    });
+  });
+});
+
+
 
 
 router.get('/ramo/:id_ramo', function (req, res, next) {

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% if(user_session) {%>
+    <% include header2.html %>
+<% } else { %>
+    <% include header1.html %>
+<% } %>
+
+<body style="background-color: #A4D5E8">
+
+<div class="container">
+    <div class="alert alert-danger">
+        <h1><strong>ERROR: </strong> <%= mensaje %> </h1>
+    </div>
+
+    <div align="center"><a href="<%= ruta_a_volver %>" class="boton boton_gray">Volver</a> </div>
+</div>
+
+</body>
+</html>
