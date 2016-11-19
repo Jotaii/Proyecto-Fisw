@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var multer = require('multer');
 var images = require('./index');
-
+var mailer = require('express-mailer');
 
 // Definicion de controladores---------------------------------------------
 var grade_controller = require('./controllers/index');
@@ -80,4 +80,43 @@ app.use(function(err, req, res, next) {
   });
   console.log(err.status);
 });
+
+mailer.extend(app, {
+  host: 'smtp.gmail.com',
+  secureConnection: true,
+  port: 465,
+  transportMethod: 'SMTP',
+  auth: {
+    user: "sistema.kolb@gmail.com",
+    pass: "UneedKolb"
+  }
+});
+
+app.get('/registro_alumno', function (req, res, next){
+  app.mailer.send('emai', {
+    from:'sistema.kolb@gmail.com',
+    to: 'pruebafisw@gmail.com',
+    subject: 'Credenciales',
+    template:'credenciales',
+    contexto:{
+      userN: 'Jon.Snow.16',
+      userP: '12345'
+    },
+    otherProperty: "otra propiedad"
+  }, function(err){
+    if (err){
+      console.log(err);
+      res.send("Hubo un error enviando el mail");
+      return;
+    }
+    res.send("Email enviado");
+  });
+});
+
+
+
+
+
 module.exports = app;
+
+

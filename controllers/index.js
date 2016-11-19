@@ -14,6 +14,7 @@ function requireLogin (req, res, next) {
   if (!req.session.user) {
     res.redirect('/');
   } else {
+    module.exports = req.session.user;
     next();
   }
 };
@@ -22,8 +23,8 @@ function requireLogin (req, res, next) {
 
 // Funcion para autenticar usuario. by #Goku
 function Authenticate(user,pass,callback) {
-
   var db = require("../BD_connection");
+
 
   db.query('select * from Usuario', function(err, rows, fields){
     if (err) {
@@ -138,12 +139,9 @@ router.post('/upload', function (req, res) {
 
 /* GET login page. */
 router.get('/', function(req, res, next) {
-
   if(req.session.user){
     res.redirect("/home");
   }
-
-  console.log(req.session);
 
   res.render('index');
 
@@ -154,7 +152,6 @@ router.post('/', function(req, res, next) {
 
   var user = req.body.username;
   var pass = req.body.password;
-
   var success = 0;
   sess = req.session;
 
@@ -162,7 +159,7 @@ router.post('/', function(req, res, next) {
 
     if(success == 1){
       console.log("Usuario logeado correctamente!");
-
+      var db2 = require("../BD_connection","mysql-activerecord");
       db.where({nombre_usuario: user});
       db.get('Usuario', function (err, results, fields) {
 
@@ -170,7 +167,18 @@ router.post('/', function(req, res, next) {
 
         sess.user = obj_usuario;
         console.log("session iniciada como: "+sess.user.nombre_usuario);
-        res.redirect("/home");
+
+
+        db2.where({categoria_alumno:0, nombre_usuario: sess.user.nombre_usuario});
+        db2.get('Alumno',function(err,resultado,fields){
+          var largo = resultado.length;
+          if(largo==1){
+            res.redirect('/test');
+          }else{
+            res.redirect("/home");
+          }
+        });
+
       });
     }
     else{
@@ -225,13 +233,13 @@ router.get('/home_convergente', requireLogin, function(req, res, next) {
 
 
 /*GET test page.*/
-router.get('/test', function(req, res, next) {
+router.get('/test', requireLogin, function(req, res, next) {
   console.log("test");
-  res.render('test');
+  res.render('test', {user_session: req.session.user});
 });
 
 /* POST test page. */
-router.post('/test', function(req, res, next) {
+router.post('/test', requireLogin, function(req, res, next) {
 
   var EC1 = parseInt(req.body.a1)+parseInt(req.body.a2)+parseInt(req.body.a3)+parseInt(req.body.a4)+parseInt(req.body.a5)+parseInt(req.body.a6)+parseInt(req.body.a7)+parseInt(req.body.a8);
   var EC =EC1+parseInt(req.body.a9)+parseInt(req.body.a10)+parseInt(req.body.a11)+parseInt(req.body.a12) ;
@@ -247,25 +255,73 @@ router.post('/test', function(req, res, next) {
 
   console.log("caec: "+CAEC);
   console.log("eaor: "+EAOR);
+  var db = require("../BD_connection","mysql-activerecord");
+  var db2 = require("../BD_connection","mysql-activerecord");
+  console.log(req.session.user);
+  db.where({nombre_usuario: req.session.user.nombre_usuario});
+
 
 
   if(CAEC < 4 && EAOR > 5){
-    console.log("Alumno es Adaptador!");
-    res.redirect("/home_adaptador");
+    db.get('Alumno', function(err, results, fields) {
+      console.log(results);
+      var NewData = results;
+      NewData.categoria_alumno =  1;
+      db2.where({nombre_usuario: req.session.user.nombre_usuario});
+      db2.update('Alumno', results, function(err) {
+        if (!err){
+          console.log("Alumno"+ req.session.user.nombre_usuario +"es Adaptador!");
+          //res.redirect("/home_adaptador");
+        }
+      });
+    });
     //res.sendFile(path.join(__dirname, '../', 'views', 'prueba.html'));
   }
   else if(CAEC < 4 && EAOR < 6){
-    console.log("Alumno es Divergente!");
-    res.redirect("/home_divergente");
+
+    db.get('Alumno', function(err, results, fields) {
+      console.log(results);
+      var NewData = results;
+      NewData.categoria_alumno = 2;
+      db2.where({nombre_usuario: req.session.user.nombre_usuario});
+      db2.update('Alumno', results, function(err) {
+        if (!err){
+          console.log("Alumno"+ req.session.user.nombre_usuario +"es Divergente!");
+          //res.redirect("/home_divergente");
+        }
+      });
+    });
   }
   else if(CAEC > 3 && EAOR < 6){
-    console.log("Alumno es Asimilador!");
-    res.redirect("/home_asimilador");
+    db.get('Alumno', function(err, results, fields) {
+      console.log(results);
+      var NewData = results;
+      NewData.categoria_alumno = 3;
+      db2.where({nombre_usuario: req.session.user.nombre_usuario});
+      db2.update('Alumno', results, function(err) {
+        if (!err){
+          console.log("Alumno"+ req.session.user.nombre_usuario +"es Asimilador!");
+          //res.redirect("/home_asimilador");
+        }
+      });
+    });
   }
   else{
-    console.log("Alumno es Convergente!");
-    res.redirect("/home_convergente");
-  }
+    db.get('Alumno', function(err, results, fields) {
+      console.log(results);
+      var NewData = results;
+      NewData.categoria_alumno = 4;
+      db2.where({nombre_usuario: req.session.user.nombre_usuario});
+      db2.update('Alumno', NewData, function(err) {
+        if (!err){
+          console.log("Alumno"+ req.session.user.nombre_usuario +"es Convergente!");
+          //res.redirect("/home_convergente");
+        }
+      });
+    });
+  };
+
+  res.redirect("/home");
 
 });
 
@@ -299,7 +355,7 @@ router.post('/registro', function (req, res, next) {
 
     if (success == 1) {
       console.log("Usuario Registrado");
-      res.redirect("/test");
+      res.redirect("/");
       //res.sendFile(path.join(__dirname, '../', 'views', 'prueba.html'));
     }
     else {
