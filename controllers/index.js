@@ -7,7 +7,14 @@ var session;
 var db = require("../BD_connection","mysql-activerecord");
 
 // Funciones varias -------------------------------------------------------------
-
+function iguales(a,b,c,d){
+  if(a==b || a==c || a==d || b==c || b==d || c==d){
+    return true;
+  }
+  else{
+    return false;
+  }
+};
 
 // Funcion para verificar si se esta logeado
 function requireLogin (req, res, next) {
@@ -265,89 +272,125 @@ router.get('/test', requireLogin, function(req, res, next) {
 
 /* POST test page. */
 router.post('/test', requireLogin, function(req, res, next) {
-
-  var EC1 = parseInt(req.body.a1)+parseInt(req.body.a2)+parseInt(req.body.a3)+parseInt(req.body.a4)+parseInt(req.body.a5)+parseInt(req.body.a6)+parseInt(req.body.a7)+parseInt(req.body.a8);
-  var EC =EC1+parseInt(req.body.a9)+parseInt(req.body.a10)+parseInt(req.body.a11)+parseInt(req.body.a12) ;
-  var OR1 = parseInt(req.body.b1)+parseInt(req.body.b2)+parseInt(req.body.b3)+parseInt(req.body.b4)+parseInt(req.body.b5)+parseInt(req.body.b6)+parseInt(req.body.b7)+parseInt(req.body.b8);
-  var OR =OR1+parseInt(req.body.b9)+parseInt(req.body.b10)+parseInt(req.body.b11)+parseInt(req.body.b12) ;
-  var CA1 =parseInt(req.body.c1)+parseInt(req.body.c2)+parseInt(req.body.c3)+parseInt(req.body.c4)+parseInt(req.body.c5)+parseInt(req.body.c6)+parseInt(req.body.c7)+parseInt(req.body.c8);
-  var CA =CA1+parseInt(req.body.c9)+parseInt(req.body.c10)+parseInt(req.body.c11)+parseInt(req.body.c12) ;
-  var EA1 = parseInt(req.body.d1)+parseInt(req.body.d2)+parseInt(req.body.d3)+parseInt(req.body.d4)+parseInt(req.body.d5)+parseInt(req.body.d6)+parseInt(req.body.d7)+parseInt(req.body.d8);
-  var EA =EA1+parseInt(req.body.d9)+parseInt(req.body.d10)+parseInt(req.body.d11)+parseInt(req.body.d12) ;
-
-  var CAEC = CA-EC;
-  var EAOR = EA-OR;
-
-  console.log("caec: "+CAEC);
-  console.log("eaor: "+EAOR);
-  var db = require("../BD_connection","mysql-activerecord");
-  var db2 = require("../BD_connection","mysql-activerecord");
-  console.log(req.session.user);
-  db.where({nombre_usuario: req.session.user.nombre_usuario});
-
-
-
-  if(CAEC < 4 && EAOR > 5){
-    db.get('Alumno', function(err, results, fields) {
-      console.log(results);
-      var NewData = results;
-      NewData.categoria_alumno =  1;
-      db2.where({nombre_usuario: req.session.user.nombre_usuario});
-      db2.update('Alumno', results, function(err) {
-        if (!err){
-          console.log("Alumno"+ req.session.user.nombre_usuario +"es Adaptador!");
-          //res.redirect("/home_adaptador");
-        }
-      });
-    });
-    //res.sendFile(path.join(__dirname, '../', 'views', 'prueba.html'));
+  if(iguales(req.body.a1,req.body.b1,req.body.c1,req.body.d1)){
+    res.render('test_error');
   }
-  else if(CAEC < 4 && EAOR < 6){
-
-    db.get('Alumno', function(err, results, fields) {
-      console.log(results);
-      var NewData = results;
-      NewData.categoria_alumno = 2;
-      db2.where({nombre_usuario: req.session.user.nombre_usuario});
-      db2.update('Alumno', results, function(err) {
-        if (!err){
-          console.log("Alumno"+ req.session.user.nombre_usuario +"es Divergente!");
-          //res.redirect("/home_divergente");
-        }
-      });
-    });
+  else if(iguales(req.body.a2,req.body.b2,req.body.c2,req.body.d2)){
+    res.render('test_error');
   }
-  else if(CAEC > 3 && EAOR < 6){
-    db.get('Alumno', function(err, results, fields) {
-      console.log(results);
-      var NewData = results;
-      NewData.categoria_alumno = 3;
-      db2.where({nombre_usuario: req.session.user.nombre_usuario});
-      db2.update('Alumno', results, function(err) {
-        if (!err){
-          console.log("Alumno"+ req.session.user.nombre_usuario +"es Asimilador!");
-          //res.redirect("/home_asimilador");
-        }
-      });
-    });
+  else if(iguales(req.body.a3,req.body.b3,req.body.c3,req.body.d3)){
+    res.render('test_error');
+  }
+  else if(iguales(req.body.a4,req.body.b4,req.body.c4,req.body.d4)){
+    res.render('test_error');
+  }
+  else if(iguales(req.body.a5,req.body.b5,req.body.c5,req.body.d5)){
+    res.render('test_error');
+  }
+  else if(iguales(req.body.a6,req.body.b6,req.body.c6,req.body.d6)){
+    res.render('test_error');
+  }
+  else if(iguales(req.body.a7,req.body.b7,req.body.c7,req.body.d7)){
+    res.render('test_error');
+  }
+  else if(iguales(req.body.a8,req.body.b8,req.body.c8,req.body.d8)){
+    res.render('test_error');
+  }
+  else if(iguales(req.body.a9,req.body.b9,req.body.c9,req.body.d9)){
+    res.render('test_error');
+  }
+  else if(iguales(req.body.a10,req.body.b10,req.body.c10,req.body.d10)){
+    res.render('test_error');
+  }
+  else if(iguales(req.body.a11,req.body.b11,req.body.c11,req.body.d11)){
+    res.render('test_error');
+  }
+  else if(iguales(req.body.a12,req.body.b12,req.body.c12,req.body.d12)){
+    res.render('test_error');
   }
   else{
-    db.get('Alumno', function(err, results, fields) {
-      console.log(results);
-      var NewData = results;
-      NewData.categoria_alumno = 4;
-      db2.where({nombre_usuario: req.session.user.nombre_usuario});
-      db2.update('Alumno', NewData, function(err) {
-        if (!err){
-          console.log("Alumno"+ req.session.user.nombre_usuario +"es Convergente!");
-          //res.redirect("/home_convergente");
-        }
+    var EC1 = parseInt(req.body.a1) + parseInt(req.body.a2) + parseInt(req.body.a3) + parseInt(req.body.a4) + parseInt(req.body.a5) + parseInt(req.body.a6) + parseInt(req.body.a7) + parseInt(req.body.a8);
+    var EC = EC1 + parseInt(req.body.a9) + parseInt(req.body.a10) + parseInt(req.body.a11) + parseInt(req.body.a12);
+    var OR1 = parseInt(req.body.b1) + parseInt(req.body.b2) + parseInt(req.body.b3) + parseInt(req.body.b4) + parseInt(req.body.b5) + parseInt(req.body.b6) + parseInt(req.body.b7) + parseInt(req.body.b8);
+    var OR = OR1 + parseInt(req.body.b9) + parseInt(req.body.b10) + parseInt(req.body.b11) + parseInt(req.body.b12);
+    var CA1 = parseInt(req.body.c1) + parseInt(req.body.c2) + parseInt(req.body.c3) + parseInt(req.body.c4) + parseInt(req.body.c5) + parseInt(req.body.c6) + parseInt(req.body.c7) + parseInt(req.body.c8);
+    var CA = CA1 + parseInt(req.body.c9) + parseInt(req.body.c10) + parseInt(req.body.c11) + parseInt(req.body.c12);
+    var EA1 = parseInt(req.body.d1) + parseInt(req.body.d2) + parseInt(req.body.d3) + parseInt(req.body.d4) + parseInt(req.body.d5) + parseInt(req.body.d6) + parseInt(req.body.d7) + parseInt(req.body.d8);
+    var EA = EA1 + parseInt(req.body.d9) + parseInt(req.body.d10) + parseInt(req.body.d11) + parseInt(req.body.d12);
+
+    var CAEC = CA - EC;
+    var EAOR = EA - OR;
+
+    console.log("caec: " + CAEC);
+    console.log("eaor: " + EAOR);
+    var db = require("../BD_connection", "mysql-activerecord");
+    var db2 = require("../BD_connection", "mysql-activerecord");
+    console.log(req.session.user);
+    db.where({nombre_usuario: req.session.user.nombre_usuario});
+
+
+    if (CAEC < 4 && EAOR > 5) {
+      db.get('Alumno', function (err, results, fields) {
+        console.log(results);
+        var NewData = results;
+        NewData.categoria_alumno = 1;
+        db2.where({nombre_usuario: req.session.user.nombre_usuario});
+        db2.update('Alumno', results, function (err) {
+          if (!err) {
+            console.log("Alumno" + req.session.user.nombre_usuario + "es Adaptador!");
+            //res.redirect("/home_adaptador");
+          }
+        });
       });
-    });
-  };
+      //res.sendFile(path.join(__dirname, '../', 'views', 'prueba.html'));
+    }
+    else if (CAEC < 4 && EAOR < 6) {
 
-  res.redirect("/home");
+      db.get('Alumno', function (err, results, fields) {
+        console.log(results);
+        var NewData = results;
+        NewData.categoria_alumno = 2;
+        db2.where({nombre_usuario: req.session.user.nombre_usuario});
+        db2.update('Alumno', results, function (err) {
+          if (!err) {
+            console.log("Alumno" + req.session.user.nombre_usuario + "es Divergente!");
+            //res.redirect("/home_divergente");
+          }
+        });
+      });
+    }
+    else if (CAEC > 3 && EAOR < 6) {
+      db.get('Alumno', function (err, results, fields) {
+        console.log(results);
+        var NewData = results;
+        NewData.categoria_alumno = 3;
+        db2.where({nombre_usuario: req.session.user.nombre_usuario});
+        db2.update('Alumno', results, function (err) {
+          if (!err) {
+            console.log("Alumno" + req.session.user.nombre_usuario + "es Asimilador!");
+            //res.redirect("/home_asimilador");
+          }
+        });
+      });
+    }
+    else {
+      db.get('Alumno', function (err, results, fields) {
+        console.log(results);
+        var NewData = results;
+        NewData.categoria_alumno = 4;
+        db2.where({nombre_usuario: req.session.user.nombre_usuario});
+        db2.update('Alumno', NewData, function (err) {
+          if (!err) {
+            console.log("Alumno" + req.session.user.nombre_usuario + "es Convergente!");
+            //res.redirect("/home_convergente");
+          }
+        });
+      });
+    }
+    ;
 
+    res.redirect("/home");
+  }
 });
 
 /* GET register page. */
