@@ -81,6 +81,12 @@ app.use(function(err, req, res, next) {
   console.log(err.status);
 });
 
+
+
+
+
+
+/*
 mailer.extend(app, {
   host: 'smtp.gmail.com',
   secureConnection: true,
@@ -92,12 +98,14 @@ mailer.extend(app, {
   }
 });
 
-app.get('/registro_alumno', function (req, res, next){
-  app.mailer.send('emai', {
+
+
+app.get('/registro', function (req, res, next){
+ console.log('intenta enviar mail!!!!!!!!!!');
+  app.mailer.send('credenciales', {
     from:'sistema.kolb@gmail.com',
     to: 'pruebafisw@gmail.com',
     subject: 'Credenciales',
-    template:'credenciales',
     contexto:{
       userN: 'Jon.Snow.16',
       userP: '12345'
@@ -111,7 +119,7 @@ app.get('/registro_alumno', function (req, res, next){
     }
     res.send("Email enviado");
   });
-});
+});*/
 
 
 
