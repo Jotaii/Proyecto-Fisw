@@ -31,14 +31,14 @@
 
         <div class="row">
 
-            <% if(user_session.tipo_usuario == 1) { %>
-                <% include contenido_divergente.html %>
-            <% } else if(user_session.tipo_usuario == 2) { %>
-                <% include contenido_adaptador.html %>
-            <% } else if(user_session.tipo_usuario == 3) { %>
-                <% include contenido_asimilador.html %>
-            <% } else if(user_session.tipo_usuario == 4) { %>
-                <% include contenido_convergente.html %>
+            <% if(alumno_session.categoria_alumno == 1) { %>
+            <% include contenido_divergente.html %>
+            <% } else if(alumno_session.categoria_alumno == 2) { %>
+            <% include contenido_adaptador.html %>
+            <% } else if(alumno_session.categoria_alumno == 3) { %>
+            <% include contenido_asimilador.html %>
+            <% } else if(alumno_session.categoria_alumno == 4) { %>
+            <% include contenido_convergente.html %>
             <% } %>
 
         </div>

@@ -7,14 +7,7 @@ var session;
 var db = require("../BD_connection","mysql-activerecord");
 
 // Funciones varias -------------------------------------------------------------
-function iguales(a,b,c,d){
-  if(a==b || a==c || a==d || b==c || b==d || c==d){
-    return true;
-  }
-  else{
-    return false;
-  }
-};
+
 
 // Funcion para verificar si se esta logeado
 function requireLogin (req, res, next) {
@@ -23,6 +16,33 @@ function requireLogin (req, res, next) {
   } else {
     module.exports = req.session.user;
     next();
+  }
+};
+
+
+function requireTest (req, res, next) {
+
+  db.where({nombre_usuario: req.session.user.nombre_usuario});
+  db.get('Alumno', function (err, results_alumno, fields) {
+
+    alumno = results_alumno[0];
+
+    if(alumno.categoria_alumno == 0){
+      next();
+    }
+    else{
+      res.redirect("/home");
+    }
+  });
+};
+
+
+function iguales(a,b,c,d){
+  if(a==b || a==c || a==d || b==c || b==d || c==d){
+    return true;
+  }
+  else{
+    return false;
   }
 };
 
@@ -152,6 +172,8 @@ function inscribirRamo(ramo, user, callback) {
 
 
 
+
+
 //---------------------------------------------------------------------
 // RUTAS --------------------------------------------------------------
 //---------------------------------------------------------------------
@@ -221,17 +243,22 @@ router.post('/', function(req, res, next) {
       db.get('Usuario', function (err, results, fields) {
 
         obj_usuario = results[0];
-
         sess.user = obj_usuario;
+
+
         console.log("session iniciada como: "+sess.user.nombre_usuario);
 
         if(results[0].tipo_usuario == 0){
-          db2.where({categoria_alumno:0, nombre_usuario: sess.user.nombre_usuario});
+          db2.where({nombre_usuario: sess.user.nombre_usuario});
           db2.get('Alumno',function(err,resultado,fields){
-            var largo = resultado.length;
-            if(largo==1){
+
+            alumno = resultado[0];
+
+            if(alumno.categoria_alumno == 0){
               res.redirect('/test');
             }else{
+              console.log("else dentro: ");
+              console.log(req.session.alumno);
               res.redirect("/home");
             }
           });
@@ -251,6 +278,13 @@ router.post('/', function(req, res, next) {
 });
 
 
+/*GET logout page.*/
+router.get('/logout', requireLogin, function(req, res, next) {
+  delete req.session.user;
+  res.redirect("/");
+});
+
+
 
 /* GET auth page. */
 router.get('/auth', function(req, res, next) {
@@ -265,50 +299,55 @@ router.get('/auth', function(req, res, next) {
 
 
 /*GET test page.*/
-router.get('/test', requireLogin, function(req, res, next) {
-  console.log("test");
+router.get('/test', requireLogin, requireTest, function(req, res, next) {
+
   res.render('test', {user_session: req.session.user});
 });
 
 /* POST test page. */
 router.post('/test', requireLogin, function(req, res, next) {
+
+  var mensaje = "Más de una opción tenía el mismo valor!";
+  var ruta_a_volver = "/test";
+
   if(iguales(req.body.a1,req.body.b1,req.body.c1,req.body.d1)){
-    res.render('test_error');
+    res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
   }
   else if(iguales(req.body.a2,req.body.b2,req.body.c2,req.body.d2)){
-    res.render('test_error');
+    res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
   }
   else if(iguales(req.body.a3,req.body.b3,req.body.c3,req.body.d3)){
-    res.render('test_error');
+    res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
   }
   else if(iguales(req.body.a4,req.body.b4,req.body.c4,req.body.d4)){
-    res.render('test_error');
+    res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
   }
   else if(iguales(req.body.a5,req.body.b5,req.body.c5,req.body.d5)){
-    res.render('test_error');
+    res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
   }
   else if(iguales(req.body.a6,req.body.b6,req.body.c6,req.body.d6)){
-    res.render('test_error');
+    res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
   }
   else if(iguales(req.body.a7,req.body.b7,req.body.c7,req.body.d7)){
-    res.render('test_error');
+    res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
   }
   else if(iguales(req.body.a8,req.body.b8,req.body.c8,req.body.d8)){
-    res.render('test_error');
+    res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
   }
   else if(iguales(req.body.a9,req.body.b9,req.body.c9,req.body.d9)){
-    res.render('test_error');
+    res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
   }
   else if(iguales(req.body.a10,req.body.b10,req.body.c10,req.body.d10)){
-    res.render('test_error');
+    res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
   }
   else if(iguales(req.body.a11,req.body.b11,req.body.c11,req.body.d11)){
-    res.render('test_error');
+    res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
   }
   else if(iguales(req.body.a12,req.body.b12,req.body.c12,req.body.d12)){
-    res.render('test_error');
+    res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
   }
-  else{
+  else {
+
     var EC1 = parseInt(req.body.a1) + parseInt(req.body.a2) + parseInt(req.body.a3) + parseInt(req.body.a4) + parseInt(req.body.a5) + parseInt(req.body.a6) + parseInt(req.body.a7) + parseInt(req.body.a8);
     var EC = EC1 + parseInt(req.body.a9) + parseInt(req.body.a10) + parseInt(req.body.a11) + parseInt(req.body.a12);
     var OR1 = parseInt(req.body.b1) + parseInt(req.body.b2) + parseInt(req.body.b3) + parseInt(req.body.b4) + parseInt(req.body.b5) + parseInt(req.body.b6) + parseInt(req.body.b7) + parseInt(req.body.b8);
@@ -655,16 +694,52 @@ router.get('/ramo/:id_ramo/contenido/:id_contenido', function (req, res, next) {
         }
       }
 
-      res.render('contenidos_ramo', {user_session: req.session.user, id_ramo : id_ramo, contenido : contenido
-        ,motivacion : motivacion, def_conceptos : def_conceptos, exp_a_realizar : exp_a_realizar,
-        video_motivacional : video_motivacional, que_problema_resuelve : que_problema_resuelve,
-        datos_necesarios_para_ejercicio : datos_necesarios_para_ejercicio, formulario : formulario,
-        ejemplos : ejemplos, preguntas_del_tipo : preguntas_del_tipo, lluvia_ideas : lluvia_ideas,
-        analogias : analogias, ejercicio_mapa_conceptual : ejercicio_mapa_conceptual,
-        base_teorica : base_teorica, conocimientos_previos : conocimientos_previos,
-        principio_teoria : principio_teoria, documentacion_adicional : documentacion_adicional,
-        que_aprenderas_topico : que_aprenderas_topico, experimentacion_explicacion : experimentacion_explicacion,
-        formulario_ejercicios : formulario_ejercicios});
+
+      if(!req.session.alumno) {
+
+        db.where({nombre_usuario: req.session.user.nombre_usuario});
+        db.get('Alumno', function (err, results_alumno, fields) {
+
+          alumno = results_alumno[0];
+          req.session.alumno = alumno;
+
+
+
+          res.render('contenidos_ramo', {
+            user_session: req.session.user, alumno_session: req.session.alumno, id_ramo: id_ramo, contenido: contenido
+            , motivacion: motivacion, def_conceptos: def_conceptos, exp_a_realizar: exp_a_realizar,
+            video_motivacional: video_motivacional, que_problema_resuelve: que_problema_resuelve,
+            datos_necesarios_para_ejercicio: datos_necesarios_para_ejercicio, formulario: formulario,
+            ejemplos: ejemplos, preguntas_del_tipo: preguntas_del_tipo, lluvia_ideas: lluvia_ideas,
+            analogias: analogias, ejercicio_mapa_conceptual: ejercicio_mapa_conceptual,
+            base_teorica: base_teorica, conocimientos_previos: conocimientos_previos,
+            principio_teoria: principio_teoria, documentacion_adicional: documentacion_adicional,
+            que_aprenderas_topico: que_aprenderas_topico, experimentacion_explicacion: experimentacion_explicacion,
+            formulario_ejercicios: formulario_ejercicios
+          });
+
+
+
+        });
+      }
+      else{
+
+        console.log("ELSE DEL RENDER");
+        console.log(req.session.alumno);
+        res.render('contenidos_ramo', {
+          user_session: req.session.user, alumno_session: req.session.alumno, id_ramo: id_ramo, contenido: contenido
+          , motivacion: motivacion, def_conceptos: def_conceptos, exp_a_realizar: exp_a_realizar,
+          video_motivacional: video_motivacional, que_problema_resuelve: que_problema_resuelve,
+          datos_necesarios_para_ejercicio: datos_necesarios_para_ejercicio, formulario: formulario,
+          ejemplos: ejemplos, preguntas_del_tipo: preguntas_del_tipo, lluvia_ideas: lluvia_ideas,
+          analogias: analogias, ejercicio_mapa_conceptual: ejercicio_mapa_conceptual,
+          base_teorica: base_teorica, conocimientos_previos: conocimientos_previos,
+          principio_teoria: principio_teoria, documentacion_adicional: documentacion_adicional,
+          que_aprenderas_topico: que_aprenderas_topico, experimentacion_explicacion: experimentacion_explicacion,
+          formulario_ejercicios: formulario_ejercicios
+        });
+      }
+
     });
 
   });
