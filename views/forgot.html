@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include header1.html %>
+<body>
+<h2>Ingrese su correo:</h2>
+<form action="/forgot" method='POST'>
+    <input id="correo" name="correo" placeholder="mail@host.com" class="form-control input-md" required="" type="email" ng-model="user.correouser">
+    <span class="help-block">Sus credenciales se enviarán al correo electrónico.</span>
+    <input type="submit" value='Enviar'/>
+
+</form>
+</body>
+</html>

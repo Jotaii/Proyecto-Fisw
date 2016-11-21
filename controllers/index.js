@@ -792,4 +792,68 @@ router.get('/ramo/:id_ramo/agregar_contenido', function (req, res, next) {
   res.render('agregar_contenido', {user_session: req.session.user, id_ramo : id_ramo});
 });
 
+/*GET forgot page.*/
+router.get('/forgot', function(req, res, next) {
+  res.render('forgot');
+});
+
+/* POST forgot page. */
+router.post('/forgot', function (req, res, next){
+  console.log(req.body.correo);
+  db.where({mail_usuario: req.body.correo});
+  db.get('Usuario', function (err, results_alumno, fields) {
+    console.log(results_alumno);
+    var largoQ = results_alumno.length;
+    if(largoQ==1){
+      var datos = results_alumno[0];
+      var userN = datos.nombre_usuario;
+      var userP = datos.password_usuario;
+
+
+      var nodemailer = require('nodemailer');
+
+      // create reusable transporter object using the default SMTP transport
+      var transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        secureConnection: true,
+        port: 465,
+        auth: {
+          user: "sistema.kolb@gmail.com",
+          pass: "UneedKolb"
+        }
+      });
+
+// setup e-mail data with unicode symbols
+      var mailOptions = {
+        from: '"Kolb" <sistema.kolb@gmail.com>', // sender address
+        to: req.body.correo, // list of receivers
+        subject: 'Recuperacion de Credenciales - No Responder', // Subject line
+        text: 'Hello world !', // plaintext body
+        html: '<b> Tus credenciales son: Usuario: </b>' + userN +
+        '<b> Contraseña: </b>' + userP // html body
+      };
+
+// send mail with defined transport object
+
+      console.log('intenta enviar mail!!!!!!!!!!');
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+      });
+
+      res.redirect("/");
+    }
+    else{
+      console.log(err);
+      var mensaje = "Correo electrónico no registrado!";
+      var ruta_a_volver = "/forgot";
+      res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
+    }
+  });
+});
+
+
+
 module.exports = router;
