@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<% include header2.html %>
+
+<body>
+
+<form action="/crear_ramo" class="form-horizontal" ng-app="reg" ng-controller="regctrl" method="post" enctype="application/x-www-form-urlencoded">
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="div_content_perfil container">
+                <div class="row">
+                    <div align="center" class="col-md-12">
+                        <img class="avatar_home" src="/images/student.jpg">
+                    </div>
+                </div>
+                <div class="caja_perfil_home row">
+                    <div align="center" class="col-md-12">
+                        <ul>
+                            <li> <%= user_session.nombre_usuario %> </li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-1 col-md-offset-1"></div>
+
+        <div class="col-md-8">
+
+            <div class="div_content_ramos container">
+
+                <div style="margin-left: 15px;">
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p class="titulo_curso">Crear Ramo</p>
+                            <br>
+                            <p>Completa los campos que se solicitan a continuacion. </p>
+                        </div>
+                        <div class="col-md-4 col-md-offset-4">
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+
+                        <div class="col-md-10">
+                            <label class="texto">Nombre del ramo</label>
+                            <br>
+                            <input name="nombre_ramo" class="form-control" type="text" required>
+
+                            <br>
+
+                            <label class="texto">Semestre del ramo en la malla</label>
+                            <br>
+                            <input name="semestre_ramo" class="form-control" type="text" required>
+
+                            <br>
+
+                            <label class="texto">Departamento del ramo</label>
+                            <br>
+                            <select class="form-control" name="departamento_ramo" required>
+
+                                <option value="Física"> Física </option>
+                                <option value="Matemática"> Matemática </option>
+                                <option value="Ingeniería Química"> Ingeniería Química </option>
+                                <option value="Industrias"> Industrias </option>
+                                <option value="Informática"> Informática </option>
+                                <option value="Estudios Humanísticos"> Estudios Humanísticos </option>
+                                <option value="Educación Física, Deportes y Recreación"> Educación Física, Deportes y Recreación </option>
+                                <option value="Ingeniería Mecánica"> Ingeniería Mecánica </option>
+                                <option value="Ingeniería Eléctrica"> Ingeniería Eléctrica </option>
+                                <option value="Ingeniería Metalúrgica y de Materiales"> Ingeniería Metalúrgica y de Materiales </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="boton" type="submit">Crear Ramo</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+</form>
+</body>
+
+<footer id="main-footer">Copyright © Uneed</footer>
+
+</html>

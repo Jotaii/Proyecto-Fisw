@@ -20,6 +20,18 @@ function requireLogin (req, res, next) {
   }
 };
 
+// Funcion para verificar si se esta logeado
+function requireAdmin (req, res, next) {
+
+  if(req.session.user.nombre_usuario == "ADMIN.ADMIN.666"){
+    next();
+  }
+  else{
+    res.redirect("/home");
+  }
+
+};
+
 
 function requireTest (req, res, next) {
 
@@ -133,7 +145,7 @@ function registrarUsuario(data, callback) {
 
 
 
-//Funcion para registrarUsuario con activerecord
+//Funcion para inscribir ramo con activerecord
 function inscribirRamo(ramo, user, callback) {
 
 
@@ -170,6 +182,44 @@ function inscribirRamo(ramo, user, callback) {
     });
   });
 }
+
+
+
+//Funcion para registrarUsuario con activerecord
+function crearRamo(data, callback) {
+
+
+  db.where({nombre_ramo : data.nombre_ramo, semestre_ramo : data.semestre_ramo});
+  db.get('Ramo', function (err, results_Ramo, fields) {
+
+    ramo = results_Ramo;
+
+      if (ramo.length == 0) {
+
+        var insercion_ramo = {
+          nombre_ramo : data.nombre_ramo,
+          semestre_ramo : data.semestre_ramo,
+          departamento : data.departamento_ramo
+        };
+
+        db.insert('Ramo', insercion_ramo, function (err) {
+
+          if (err) {
+            console.log("ERROR EN LA BASE DE DATOS");
+          }
+          else {
+            return callback(1);
+          }
+        });
+      }
+      else {
+        return callback(0);
+      }
+  });
+}
+
+
+
 
 
 
@@ -233,6 +283,7 @@ router.post('/', function(req, res, next) {
 
   var user = req.body.username;
   var pass = req.body.password;
+
   var success = 0;
   sess = req.session;
 
@@ -283,7 +334,41 @@ router.post('/', function(req, res, next) {
 /*GET logout page.*/
 router.get('/logout', requireLogin, function(req, res, next) {
   delete req.session.user;
+  delete req.session.ramos;
+  delete req.session.nombre_usuario;
   res.redirect("/");
+});
+
+/*GET logout page.*/
+router.get('/crear_ramo', requireLogin, requireAdmin, function(req, res, next) {
+  res.render("crear_ramo", {user_session : req.session.user});
+});
+
+
+/*POST crear_ramo page.*/
+router.post('/crear_ramo', requireLogin, requireAdmin, function(req, res, next) {
+
+
+  var data = {
+    nombre_ramo: req.body.nombre_ramo,
+    semestre_ramo: req.body.semestre_ramo,
+    departamento_ramo: req.body.departamento_ramo
+  };
+
+
+  crearRamo(data, function (success) {
+
+    if (success == 1) {
+      res.redirect("/home");
+    }
+    else {
+      var mensaje = "Ya existe un ramo con ese nombre y semestre!";
+      var ruta_a_volver = "/crear_ramo";
+      res.render("error_template", {mensaje: mensaje, ruta_a_volver: ruta_a_volver, user_session: req.session.user});
+    }
+
+    res.render("crear_ramo", {user_session: req.session.user});
+  });
 });
 
 
@@ -428,7 +513,6 @@ router.post('/test', requireLogin, function(req, res, next) {
         });
       });
     }
-    ;
 
     res.redirect("/home");
   }
@@ -511,62 +595,107 @@ router.post('/registro', function (req, res, next) {
 
 router.get('/home', requireLogin, function (req, res, next) {
 
-  if(!req.session.ramos){
+  admin = false;
+
+  if(req.session.user.nombre_usuario == "ADMIN.ADMIN.666"){
 
     nombres_ramos = [];
     id_ramos = [];
-    var nombre_usuario = req.session.user.nombre_usuario;
+    admin = true;
 
-    db.where({ nombre_usuario : nombre_usuario });
-    db.get('Alumno', function(err, results_Alumno, fields) {
+    db.get('Ramo', function(err, results, fields) {
 
-      var alumno = results_Alumno[0];
+      ramos = results;
 
-      db.where({ Alumnoid_alumno : alumno.id_alumno });
-      db.get('Ramo_Alumno', function(err, results_Ramo_Alumno, fields) {
+      con = 0;
 
-        Ramo_Alumno = results_Ramo_Alumno;
+      for(var i=0;i<ramos.length; i++){
 
-        if(Ramo_Alumno.length != 0){
+        ramo = ramos[i];
 
-          for(i=0;i<Ramo_Alumno.length; i++){
+        nombres_ramos.push(ramo.nombre_ramo);
+        id_ramos.push(ramo.id_ramo);
 
-            con = 0;
+        con++;
 
-            db.where({ id_ramo : Ramo_Alumno[i].Ramoid_ramo });
-            db.get('Ramo', function(err, results_Ramo, fields) {
+        if(con == ramos.length){
+          console.log("ENTRO AL IF!");
 
-              ramo = results_Ramo[0];
+          req.session.nombres_ramos = nombres_ramos;
+          req.session.id_ramos = id_ramos;
 
-              console.log(ramo);
-
-              var nombre_ramo = ramo["nombre_ramo"];
-              var id_ramo = ramo["id_ramo"];
-
-              nombres_ramos.push(nombre_ramo);
-              id_ramos.push(id_ramo);
-
-              req.session.nombres_ramos = nombres_ramos;
-              req.session.id_ramos = id_ramos;
-
-              con++;
-
-              if(con == Ramo_Alumno.length){
-                console.log(req.session.nombres_ramos);
-                res.render("home", {user_session : req.session.user, nombres_ramos : req.session.nombres_ramos,
-                  id_ramos : req.session.id_ramos});
-              }
-
-            });
-          }
-        }
-        else{
-          res.render("home", {user_session : req.session.user, nombres_ramos : [],
-            id_ramos : req.session.id_ramos});
+          console.log(req.session.nombres_ramos);
+          console.log(req.session.id_ramos);
+          res.render("home", {user_session : req.session.user, nombres_ramos : req.session.nombres_ramos,
+            id_ramos : req.session.id_ramos, admin : admin});
         }
 
-      });
+
+      }
+
     });
+
+  }
+  else{
+
+    if(!req.session.ramos){
+
+      nombres_ramos = [];
+      id_ramos = [];
+      var nombre_usuario = req.session.user.nombre_usuario;
+
+      db.where({ nombre_usuario : nombre_usuario });
+      db.get('Alumno', function(err, results_Alumno, fields) {
+
+        var alumno = results_Alumno[0];
+
+        db.where({ Alumnoid_alumno : alumno.id_alumno });
+        db.get('Ramo_Alumno', function(err, results_Ramo_Alumno, fields) {
+
+          Ramo_Alumno = results_Ramo_Alumno;
+
+          if(Ramo_Alumno.length != 0){
+
+            for(i=0;i<Ramo_Alumno.length; i++){
+
+              con = 0;
+
+              db.where({ id_ramo : Ramo_Alumno[i].Ramoid_ramo });
+              db.get('Ramo', function(err, results_Ramo, fields) {
+
+                ramo = results_Ramo[0];
+
+                console.log(ramo);
+
+                var nombre_ramo = ramo["nombre_ramo"];
+                var id_ramo = ramo["id_ramo"];
+
+                nombres_ramos.push(nombre_ramo);
+                id_ramos.push(id_ramo);
+
+                req.session.nombres_ramos = nombres_ramos;
+                req.session.id_ramos = id_ramos;
+
+                con++;
+
+                if(con == Ramo_Alumno.length){
+                  console.log(req.session.nombres_ramos);
+                  res.render("home", {user_session : req.session.user, nombres_ramos : req.session.nombres_ramos,
+                    id_ramos : req.session.id_ramos, admin : admin});
+                }
+
+              });
+            }
+          }
+          else{
+            res.render("home", {user_session : req.session.user, nombres_ramos : [],
+              id_ramos : req.session.id_ramos, admin : admin});
+          }
+
+        });
+      });
+    }
+
   }
 
 });
