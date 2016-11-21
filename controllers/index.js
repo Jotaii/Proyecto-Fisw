@@ -23,7 +23,7 @@ function requireLogin (req, res, next) {
 // Funcion para verificar si se esta logeado
 function requireAdmin (req, res, next) {
 
-  if(req.session.user.nombre_usuario == "ADMIN.ADMIN.666"){
+  if(req.session.user.tipo_usuario == 2){
     next();
   }
   else{
@@ -597,7 +597,7 @@ router.get('/home', requireLogin, function (req, res, next) {
 
   admin = false;
 
-  if(req.session.user.nombre_usuario == "ADMIN.ADMIN.666"){
+  if(req.session.user.tipo_usuario == 2){
 
     nombres_ramos = [];
     id_ramos = [];
