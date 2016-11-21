@@ -2,12 +2,27 @@
 <html lang="en">
 <% include header1.html %>
 <body>
-<h2>Ingrese su correo:</h2>
-<form action="/forgot" method='POST'>
-    <input id="correo" name="correo" placeholder="mail@host.com" class="form-control input-md" required="" type="email" ng-model="user.correouser">
-    <span class="help-block">Sus credenciales se enviarán al correo electrónico.</span>
-    <input type="submit" value='Enviar'/>
 
+<form action="/forgot" class="form-horizontal" method="post" enctype="application/x-www-form-urlencoded">
+    <fieldset>
+
+        <div>
+            <!-- Form Name -->
+            <h1 align="center">Recuperación de cuenta</h1>
+            <br><br>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="correo">Correo electrónico</label>
+                <div class="col-md-4">
+                    <input id="correo" name="correo" placeholder="mail@host.com" class="form-control input-md" required="" type="email" ng-model="user.correouser">
+                    <span class="help-block">Sus datos de registro se enviarán al correo electrónico.</span>
+                    <input class="btn btn-success" type="submit" value='Enviar'/>
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
 </form>
+
 </body>
 </html>
