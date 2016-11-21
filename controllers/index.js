@@ -4,6 +4,7 @@ var path = require('path');
 var dialog = require('dialog');
 var crypto = require('crypto'); // Modulo para encriptar cosas
 var session;
+var auxiliar;
 var db = require("../BD_connection","mysql-activerecord");
 
 // Funciones varias -------------------------------------------------------------
@@ -96,6 +97,7 @@ function registrarUsuario(data, callback) {
           }
           else {
               console.log('New row ID is ' + insercion_usuario.nombre_usuario);
+              auxiliar = insercion_usuario.nombre_usuario;
           }
 
       });
@@ -461,6 +463,40 @@ router.post('/registro', function (req, res, next) {
   registrarUsuario(data, function (success) {
 
     if (success == 1) {
+      //enviar mails de registro
+      var nodemailer = require('nodemailer');
+
+// create reusable transporter object using the default SMTP transport
+      var transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        secureConnection: true,
+        port: 465,
+        auth: {
+          user: "sistema.kolb@gmail.com",
+          pass: "UneedKolb"
+        }
+      });
+
+// setup e-mail data with unicode symbols
+      var mailOptions = {
+        from: '"Kolb" <sistema.kolb@gmail.com>', // sender address
+        to: req.body.correo, // list of receivers
+        subject: 'Credenciales - No Responder', // Subject line
+        text: 'Hello world !', // plaintext body
+        html: '<b> Tus credenciales son: Usuario: </b>'+ auxiliar +
+        '<b> Contraseña: </b>'+req.body.password // html body
+      };
+
+// send mail with defined transport object
+
+      console.log('intenta enviar mail!!!!!!!!!!');
+      transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+          return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+      });
+
       res.redirect("/");
     }
     else {
@@ -469,38 +505,7 @@ router.post('/registro', function (req, res, next) {
       res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
     }
   });
-  //enviar mails de registro
-  var nodemailer = require('nodemailer');
 
-// create reusable transporter object using the default SMTP transport
-  var transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    secureConnection: true,
-    port: 465,
-    auth: {
-      user: "sistema.kolb@gmail.com",
-      pass: "UneedKolb"
-    }
-  });
-
-// setup e-mail data with unicode symbols
-  var mailOptions = {
-    from: '"Kolb" <sistema.kolb@gmail.com>', // sender address
-    to: 'pruebafisw@gmail.com', // list of receivers
-    subject: 'Credenciales', // Subject line
-    text: 'Hello world !', // plaintext body
-    html: '<b>Hello world 🐴</b>' // html body
-  };
-
-// send mail with defined transport object
-
-  console.log('intenta enviar mail!!!!!!!!!!');
-  transporter.sendMail(mailOptions, function(error, info){
-    if(error){
-      return console.log(error);
-    }
-    console.log('Message sent: ' + info.response);
-  });
 });
 
 
