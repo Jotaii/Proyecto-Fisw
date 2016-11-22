@@ -46,6 +46,7 @@
             <form action="/upload" method='POST' enctype="multipart/form-data">
                 <input type="text" name="name" value="001"/>
                 <input type="file" name='images'/>
+                <input type="hidden" name="nombrecont" value="{{ nombre }}">
                 <input type="submit" value='Subir'/>
 
             </form>

@@ -1,0 +1,27 @@
+// esto debe ir si o si 
+{
+	"name: "miWebServer";
+	"description": "Servidor web de prueba";
+	"version": "1.0.0";
+	"dependencies":{
+	//aca falto lo de mysql
+	"express": "3.x";
+	}
+}
+
+
+////////////////////////////
+//importar 
+var express = requiere('express');
+var app =express();
+
+ app.get('/',funtion(req,res)){
+ 	res.sendfile(__dirname + '/Views/index.html');
+ });
+app.get('/about', funtion (req,res){
+	res.sendfile(__dirname + '/Views/about.html');
+});
+app.use(express.static{'public'});
+//escuchar
+app.listen(8080);
+console.log("Servidor Express funcionando en localhost:8080");

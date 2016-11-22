@@ -20,7 +20,7 @@ var db = new Db.Adapter({
     server: 'localhost',
     username: 'root',
     password: '1234',
-    database: 'LaCaca',
+    database: 'fisw',
     reconnectTimeout: 2000
 });
 module.exports = db;

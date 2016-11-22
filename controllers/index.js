@@ -248,17 +248,41 @@ router.post('/upload', function (req, res) {
 
     fs.readFile(img.path, function(err, data){
       var path = "./public/uploads/" +img.originalFilename;
-      /*var db = require("../BD_connection","mysql-activerecord");
-      db.where({nombre_usuario: req.session.user.nombre_usuario});
-      db.get('Usuario', function (err, results, fields) {
-        var NewData = {
+      var db = require("../BD_connection","mysql-activerecord");
+      var nombre_subcont = img.originalFilename;
+      db.where( {nombre_subcontenido: nombre_subcont});
+      db.get('Sub_Contenido',function(err, results, fields){
+        var largoQ = results.length;
+        if (largoQ == 0) {
+          console.log("entramos al if del registro");
+          var insercion_subcontenido = {
+            tipo_subcontenido: req.body.nombrecont,
+            ruta_contenido: path,
+            nombre_usuario: req.session.user.nombre_usuario,
+            nombre_subcontenido: nombre_subcont
+          };
+          db.insert('Sub_Contenido', insercion_subcontenido, function (err) {
+            if (err) {
+              console.log("ERROR EN LA BASE DE DATOS");
+            }
+            else {
+              console.log('New row ID is ' + insercion_subcontenido.nombre_subcontenido);
+              fs.writeFile(path, data, function(error){
+                if(error) console.log(error);
 
+                res.send("UploadSuccess")
+              });
+            }
+
+          });
         }
-      }*/
-      fs.writeFile(path, data, function(error){
-        if(error) console.log(error);
+        else{
+          console.log("Ya estaba");
+          var mensaje = "Ya existe contenido con ese nombre!";
+          var ruta_a_volver = "/agregar_contenido";
+          res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
+        }
 
-        res.send("UploadSuccess")
       });
     });
 
