@@ -76,12 +76,14 @@
         <br>
 
         <% for(var i=0; i < ejemplos.length; i++){ %>
-            <div class="Ejemplo_1 col-md-5" style="border-style: solid; border-width: 5px;">
-                <%= ejemplos[i].ruta_contenido %>
+        <div class="row " style="margin-left: 20px";>
+            <div class="Ejemplo_1 col-md-5">
+                <img src="<%= ejemplos[i].ruta_contenido %>" height="100px" width="200px">
             </div>
-            <div class="Solucion_ejemplo_1 col-md-offset-2 col-md-5" style="border-style: solid; border-width: 5px;">
-                Solucion ejemplo <%= i+1 %>
+            <div class="Solucion_ejemplo_1 col-md-7">
+                Explicacion <%= i+1 %>
             </div>
+        </div>
             <br><br>
         <% } %>
 

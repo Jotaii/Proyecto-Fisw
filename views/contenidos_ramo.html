@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-md-10"><p class="sub_titulo"> <%= contenido.descripcion %> </p></div>
             <div class="col-md-2">
-                <% if(user_session.tipo_usuario == 1){ %>
+                <% if(user_session.tipo_usuario >= 1){ %>
                 <div ><a class="btn btn-success" href="/ramo/<%= ramo.id_ramo %>/contenido/<%= contenido.id_contenido %>/agregar_contenido/">Agregar Contenido</a></div>
                 <select class="form-control" ng-init="selectedCategoria = names[0]" ng-model="selectedCategoria" ng-options="x for x in names">
                 </select>

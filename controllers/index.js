@@ -335,6 +335,7 @@ router.post('/upload', function (req, res) {
 
     fs.readFile(img.path, function(err, data){
       var path = "./public/uploads/" +img.originalFilename;
+      var path2 = "/uploads/" +img.originalFilename;
       var db = require("../BD_connection","mysql-activerecord");
       var nombre_subcont = img.originalFilename;
       db.where( {nombre_subcontenido: nombre_subcont});
@@ -346,7 +347,7 @@ router.post('/upload', function (req, res) {
           var insercion_subcontenido = {
             id_contenido: contenido_global,
             tipo_subcontenido: tipo_contenido_sub,
-            ruta_contenido: path,
+            ruta_contenido: path2,
             nombre_usuario: req.session.user.nombre_usuario,
             nombre_subcontenido: nombre_subcont
           };
@@ -359,7 +360,7 @@ router.post('/upload', function (req, res) {
               fs.writeFile(path, data, function(error){
                 if(error) console.log(error);
 
-                res.send("UploadSuccess")
+                res.redirect("/ramo/"+ramo_global+"/contenido/"+contenido_global);
               });
             }
 
@@ -368,7 +369,7 @@ router.post('/upload', function (req, res) {
         else{
           console.log("Ya estaba");
           var mensaje = "Ya existe contenido con ese nombre!";
-          var ruta_a_volver = "/agregar_contenido";
+          var ruta_a_volver = "/ramo/"+ramo_global+"/contenido/"+contenido_global+"/agregar_contenido";
           res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
         }
 
@@ -1198,6 +1199,7 @@ router.get('/ramo/:id_ramo/contenido/:id_contenido/agregar_contenido', function 
   var id_ramo = req.params.id_ramo;
   var id_contenido = req.params.id_contenido;
   contenido_global = req.params.id_contenido;
+  ramo_global = id_ramo;
 
   // Aca se pueden hacer consultas para recuperar el objeto ramo y contenido entero
 
