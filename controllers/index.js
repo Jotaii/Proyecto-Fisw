@@ -331,6 +331,7 @@ router.post('/upload', function (req, res) {
   form.parse(req, function(err, fields, files){
     var img = files.images[0];
     var fs = require('fs');
+    var tipo_contenido_sub = fields.nombrecont[0];
 
     fs.readFile(img.path, function(err, data){
       var path = "./public/uploads/" +img.originalFilename;
@@ -341,8 +342,10 @@ router.post('/upload', function (req, res) {
         var largoQ = results.length;
         if (largoQ == 0) {
           console.log("entramos al if del registro");
+          console.log(tipo_contenido_sub);
           var insercion_subcontenido = {
-            tipo_subcontenido: req.body.nombrecont,
+            id_contenido: contenido_global,
+            tipo_subcontenido: tipo_contenido_sub,
             ruta_contenido: path,
             nombre_usuario: req.session.user.nombre_usuario,
             nombre_subcontenido: nombre_subcont
@@ -375,7 +378,6 @@ router.post('/upload', function (req, res) {
   });
 
 });
-
 
 
 /* GET login page. */
@@ -1191,13 +1193,15 @@ router.get('/ramo/:id_ramo/contenido/:id_contenido', function (req, res, next) {
 });
 
 
-router.get('/ramo/:id_ramo/agregar_contenido', function (req, res, next) {
+router.get('/ramo/:id_ramo/contenido/:id_contenido/agregar_contenido', function (req, res, next) {
 
   var id_ramo = req.params.id_ramo;
+  var id_contenido = req.params.id_contenido;
+  contenido_global = req.params.id_contenido;
 
   // Aca se pueden hacer consultas para recuperar el objeto ramo y contenido entero
 
-  res.render('agregar_contenido', {user_session: req.session.user, id_ramo : id_ramo});
+  res.render('agregar_contenido', {user_session: req.session.user, id_ramo : id_ramo,id_contenido:id_contenido});
 });
 
 /*GET forgot page.*/
