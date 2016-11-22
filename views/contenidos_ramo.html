@@ -3,7 +3,7 @@
 
 <% include header2.html %>
 
-<body>
+<body ng-app="app" ng-controller="myCtrl">
 
 <div class="container-fluid">
     <div class="div_content container">
@@ -16,13 +16,21 @@
         </div>
         <br><br>
         <div class="row">
-            <div class="col-md-12"><p class="sub_titulo"> <%= contenido.descripcion %> </p></div>
+            <div class="col-md-10"><p class="sub_titulo"> <%= contenido.descripcion %> </p></div>
+            <div class="col-md-2">
+                <select class="form-control" ng-init="selectedCategoria = names[0]" ng-model="selectedCategoria" ng-options="x for x in names">
+                </select>
+            </div>
         </div>
         <div class="row">
             <div class=" col-md-8">
                 <ul>
-                    <br><br>
-                    <p> aca estaba la info </p>
+                    <script>
+                        var app = angular.module("app",[]);
+                        app.controller("myCtrl",function ($scope) {
+                           $scope.names = ["Divergente","Adaptador","Asimilador","Convergente"];
+                        });
+                    </script>
                 </ul>
             </div>
             <div class="col-md-4 col-md-offset-4"></div>
@@ -31,14 +39,33 @@
 
         <div class="row">
 
-            <% if(alumno_session.categoria_alumno == 1) { %>
-            <% include contenido_divergente.html %>
-            <% } else if(alumno_session.categoria_alumno == 2) { %>
-            <% include contenido_adaptador.html %>
-            <% } else if(alumno_session.categoria_alumno == 3) { %>
-            <% include contenido_asimilador.html %>
-            <% } else if(alumno_session.categoria_alumno == 4) { %>
-            <% include contenido_convergente.html %>
+            <% if(user_session.tipo_usuario == 0){ %>
+
+                <% if(alumno_session.categoria_alumno == 1) { %>
+                <% include contenido_divergente.html %>
+                <% } else if(alumno_session.categoria_alumno == 2) { %>
+                <% include contenido_adaptador.html %>
+                <% } else if(alumno_session.categoria_alumno == 3) { %>
+                <% include contenido_asimilador.html %>
+                <% } else if(alumno_session.categoria_alumno == 4) { %>
+                <% include contenido_convergente.html %>
+                <% } %>
+
+            <% }else { %>
+                <div ng-switch="selectedCategoria" >
+                    <div ng-switch-when="Divergente">
+                        <% include contenido_divergente.html %>
+                    </div>
+                    <div ng-switch-when="Adaptador">
+                        <% include contenido_adaptador.html %>
+                    </div>
+                    <div ng-switch-when="Asimilador">
+                        <% include contenido_asimilador.html %>
+                    </div>
+                    <div ng-switch-when="Convergente">
+                        <% include contenido_convergente.html %>
+                    </div>
+                </div>
             <% } %>
 
         </div>

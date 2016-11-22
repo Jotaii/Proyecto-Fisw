@@ -97,12 +97,25 @@ function registrarUsuario(data, callback) {
     var largoquery = results.length;
     if (largoquery == 0){
       console.log("entramos al if del registro");
+
+      if(data.tipo == "alumno"){
         var insercion_usuario = {
-        nombre_usuario : user,
-        password_usuario : data.pss,
-        tipo_usuario : 0,
-        mail_usuario : data.mail
-      };
+          nombre_usuario : user,
+          password_usuario : data.pss,
+          tipo_usuario : 0,
+          mail_usuario : data.mail
+        };
+      }
+      else if(data.tipo == "profe"){
+        var insercion_usuario = {
+          nombre_usuario : user,
+          password_usuario : data.pss,
+          tipo_usuario : 1,
+          mail_usuario : data.mail
+        };
+      }
+
+
       db.insert('Usuario', insercion_usuario, function(err) {
           if (err) {
               console.log("ERROR EN LA BASE DE DATOS");
@@ -114,26 +127,55 @@ function registrarUsuario(data, callback) {
 
       });
 
-      var insercion_alumno = {
-        rut_alumno : data.rut,
-        nombre_alumno : data.nombre,
-        apellido_p_alumno : data.appat,
-        apellido_m_alumno : data.apmat,
-        nac_alumno : data.fnac,
-        categoria_alumno : 0,
-        nombre_usuario : user
-      };
-      db.insert('Alumno', insercion_alumno, function(err) {
+      if(data.tipo == "alumno"){
+
+        var insercion_alumno = {
+          rut_alumno : data.rut,
+          nombre_alumno : data.nombre,
+          apellido_p_alumno : data.appat,
+          apellido_m_alumno : data.apmat,
+          nac_alumno : data.fnac,
+          categoria_alumno : 0,
+          nombre_usuario : user
+        };
+        db.insert('Alumno', insercion_alumno, function(err) {
           if (err) {
-              console.log("ERROR EN LA BASE DE DATOS");
-              return callback(0);
+            console.log("ERROR EN LA BASE DE DATOS");
+            return callback(0);
           }
           else {
-              console.log('Alumno '+ data.nombre + " "+ data.appat + " "+ data.apmat + " agregado satisfactoriamente");
-              return callback(1);
+            return callback(1);
           }
 
-      });
+        });
+
+      }
+      else if(data.tipo == "profe"){
+
+        var insercion_profe = {
+          rut_profesor : data.rut,
+          nombre_profesor : data.nombre,
+          apellido_p_profesor : data.appat,
+          apellido_m_profesor : data.apmat,
+          nac_profesor : data.fnac,
+          institucion_profesor : "USM",
+          nombre_usuario : user
+
+        };
+        db.insert('Profesor', insercion_profe, function(err) {
+          if (err) {
+            console.log("ERROR EN LA BASE DE DATOS");
+            return callback(0);
+          }
+          else {
+            return callback(1);
+          }
+
+        });
+
+      }
+
+
 
     }
     else{
@@ -148,39 +190,83 @@ function registrarUsuario(data, callback) {
 //Funcion para inscribir ramo con activerecord
 function inscribirRamo(ramo, user, callback) {
 
+  if(user.tipo_usuario == 0){
 
-  db.where({ nombre_usuario: user.nombre_usuario });
-  db.get('Alumno', function(err, results_alumno, fields){
 
-    alumno = results_alumno[0];
+    db.where({ nombre_usuario: user.nombre_usuario });
+    db.get('Alumno', function(err, results_alumno, fields){
 
-    db.where({ Ramoid_ramo: ramo.id_ramo, Alumnoid_alumno: alumno.id_alumno});
-    db.get('Ramo_Alumno', function(err, results_ramoAlumno, fields){
+      alumno = results_alumno[0];
 
-      var inscripcion = results_ramoAlumno;
+      db.where({ Ramoid_ramo: ramo.id_ramo, Alumnoid_alumno: alumno.id_alumno});
+      db.get('Ramo_Alumno', function(err, results_ramoAlumno, fields){
 
-      if (inscripcion.length == 0){
+        var inscripcion = results_ramoAlumno;
 
-        var insercion_inscripcion = {
-          Ramoid_ramo : ramo.id_ramo,
-          Alumnoid_alumno : alumno.id_alumno};
+        if (inscripcion.length == 0){
 
-        db.insert('Ramo_Alumno', insercion_inscripcion, function(err) {
+          var insercion_inscripcion = {
+            Ramoid_ramo : ramo.id_ramo,
+            Alumnoid_alumno : alumno.id_alumno};
 
-          if (err) {
-            console.log("ERROR EN LA BASE DE DATOS");
-          }
-          else {
-            console.log('Se inserto la inscripcion!');
-            return callback(1);
-          }
-        });
-      }
-      else{
-        return callback(0);
-      }
+          db.insert('Ramo_Alumno', insercion_inscripcion, function(err) {
+
+            if (err) {
+              console.log("ERROR EN LA BASE DE DATOS");
+            }
+            else {
+              console.log('Se inserto la inscripcion!');
+              return callback(1);
+            }
+          });
+        }
+        else{
+          return callback(0);
+        }
+      });
     });
-  });
+
+
+  }
+  else if(user.tipo_usuario == 1){
+
+    db.where({ nombre_usuario: user.nombre_usuario });
+    db.get('Profesor', function(err, results_profe, fields){
+
+      profe = results_profe[0];
+
+      db.where({ Ramoid_ramo: ramo.id_ramo, Profesorid_profesor: profe.id_profesor});
+      db.get('Profesor_Ramo', function(err, results_profesorRamo, fields){
+
+        var inscripcion = results_profesorRamo;
+
+        if (inscripcion.length == 0){
+
+          var insercion_inscripcion = {
+            Profesorid_profesor : profe.id_profesor,
+            Ramoid_ramo : ramo.id_ramo
+            };
+
+          db.insert('Profesor_Ramo', insercion_inscripcion, function(err) {
+
+            if (err) {
+              console.log("ERROR EN LA BASE DE DATOS");
+            }
+            else {
+              console.log('Se inserto la inscripcion!');
+              return callback(1);
+            }
+          });
+        }
+        else{
+          return callback(0);
+        }
+      });
+    });
+
+  }
+
+
 }
 
 
@@ -554,6 +640,73 @@ router.get('/registro_profe', function (req, res, next) {
 });
 
 
+
+/* POST register page. */
+router.post('/registro_profe', function (req, res, next) {
+
+  var data = {
+    nombre : req.body.Nombre,
+    appat : req.body.Appat,
+    apmat : req.body.Apmat,
+    rut : req.body.rut,
+    mail : req.body.correo,
+    fnac : req.body.fechnac,
+    pss : req.body.password,
+    tipo : "profe"
+
+  };
+
+  registrarUsuario(data, function (success) {
+
+    if (success == 1) {
+      //enviar mails de registro
+      var nodemailer = require('nodemailer');
+
+// create reusable transporter object using the default SMTP transport
+      var transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        secureConnection: true,
+        port: 465,
+        auth: {
+          user: "sistema.kolb@gmail.com",
+          pass: "UneedKolb"
+        }
+      });
+
+// setup e-mail data with unicode symbols
+      var mailOptions = {
+        from: '"Kolb" <sistema.kolb@gmail.com>', // sender address
+        to: req.body.correo, // list of receivers
+        subject: 'Credenciales - No Responder', // Subject line
+        text: 'Hello world !', // plaintext body
+        html: '<b> Tus credenciales son: Usuario: </b>'+ auxiliar +
+        '<b> Contraseña: </b>'+req.body.password // html body
+      };
+
+// send mail with defined transport object
+
+      console.log('intenta enviar mail!!!!!!!!!!');
+      transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+          return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+      });
+
+      res.redirect("/");
+    }
+    else {
+      var mensaje = "El correo o rut ingresado ya se encuentra registrado!";
+      var ruta_a_volver = "/registro";
+      res.render("error_template", {mensaje : mensaje, ruta_a_volver : ruta_a_volver, user_session : req.session.user});
+    }
+  });
+
+});
+
+
+
+
 /* POST register page. */
 router.post('/registro', function (req, res, next) {
 
@@ -564,7 +717,8 @@ router.post('/registro', function (req, res, next) {
     rut : req.body.rut,
     mail : req.body.correo,
     fnac : req.body.fechnac,
-    pss : req.body.password
+    pss : req.body.password,
+    tipo : "alumno"
 
   };
 
@@ -664,60 +818,133 @@ router.get('/home', requireLogin, function (req, res, next) {
 
     if(!req.session.ramos){
 
-      nombres_ramos = [];
-      id_ramos = [];
-      var nombre_usuario = req.session.user.nombre_usuario;
+      if(req.session.user.tipo_usuario == 0){
 
-      db.where({ nombre_usuario : nombre_usuario });
-      db.get('Alumno', function(err, results_Alumno, fields) {
 
-        var alumno = results_Alumno[0];
+        nombres_ramos = [];
+        id_ramos = [];
+        var nombre_usuario = req.session.user.nombre_usuario;
 
-        db.where({ Alumnoid_alumno : alumno.id_alumno });
-        db.get('Ramo_Alumno', function(err, results_Ramo_Alumno, fields) {
+        db.where({ nombre_usuario : nombre_usuario });
+        db.get('Alumno', function(err, results_Alumno, fields) {
 
-          Ramo_Alumno = results_Ramo_Alumno;
+          var alumno = results_Alumno[0];
 
-          if(Ramo_Alumno.length != 0){
+          db.where({ Alumnoid_alumno : alumno.id_alumno });
+          db.get('Ramo_Alumno', function(err, results_Ramo_Alumno, fields) {
 
-            for(i=0;i<Ramo_Alumno.length; i++){
+            Ramo_Alumno = results_Ramo_Alumno;
 
-              con = 0;
+            if(Ramo_Alumno.length != 0){
 
-              db.where({ id_ramo : Ramo_Alumno[i].Ramoid_ramo });
-              db.get('Ramo', function(err, results_Ramo, fields) {
+              for(i=0;i<Ramo_Alumno.length; i++){
 
-                ramo = results_Ramo[0];
+                con = 0;
 
-                console.log(ramo);
+                db.where({ id_ramo : Ramo_Alumno[i].Ramoid_ramo });
+                db.get('Ramo', function(err, results_Ramo, fields) {
 
-                var nombre_ramo = ramo["nombre_ramo"];
-                var id_ramo = ramo["id_ramo"];
+                  ramo = results_Ramo[0];
 
-                nombres_ramos.push(nombre_ramo);
-                id_ramos.push(id_ramo);
+                  console.log(ramo);
 
-                req.session.nombres_ramos = nombres_ramos;
-                req.session.id_ramos = id_ramos;
+                  var nombre_ramo = ramo["nombre_ramo"];
+                  var id_ramo = ramo["id_ramo"];
 
-                con++;
+                  nombres_ramos.push(nombre_ramo);
+                  id_ramos.push(id_ramo);
 
-                if(con == Ramo_Alumno.length){
-                  console.log(req.session.nombres_ramos);
-                  res.render("home", {user_session : req.session.user, nombres_ramos : req.session.nombres_ramos,
-                    id_ramos : req.session.id_ramos, admin : admin});
-                }
+                  req.session.nombres_ramos = nombres_ramos;
+                  req.session.id_ramos = id_ramos;
 
-              });
+                  con++;
+
+                  if(con == Ramo_Alumno.length){
+                    console.log(req.session.nombres_ramos);
+                    res.render("home", {user_session : req.session.user, nombres_ramos : req.session.nombres_ramos,
+                      id_ramos : req.session.id_ramos, admin : admin});
+                  }
+
+                });
+              }
             }
-          }
-          else{
-            res.render("home", {user_session : req.session.user, nombres_ramos : [],
-              id_ramos : req.session.id_ramos, admin : admin});
-          }
+            else{
+              res.render("home", {user_session : req.session.user, nombres_ramos : [],
+                id_ramos : req.session.id_ramos, admin : admin});
+            }
 
+          });
         });
-      });
+
+
+      }
+      else if(req.session.user.tipo_usuario == 1){
+
+
+        nombres_ramos = [];
+        id_ramos = [];
+        var nombre_usuario = req.session.user.nombre_usuario;
+
+        console.log("nombre_usuario:");
+        console.log(nombre_usuario);
+
+        db.where({ nombre_usuario : nombre_usuario });
+        db.get('Profesor', function(err, results_Profe, fields) {
+
+          var profe = results_Profe[0];
+
+          console.log("profe:");
+          console.log(profe);
+
+          db.where({ Profesorid_profesor : profe.id_profesor });
+          db.get('Profesor_Ramo', function(err, results_Profesor_Ramo, fields) {
+
+            Profe_ramo = results_Profesor_Ramo;
+
+            if(Profe_ramo.length != 0){
+
+              for(i=0;i<Profe_ramo.length; i++){
+
+                con = 0;
+
+                db.where({ id_ramo : Profe_ramo[i].Ramoid_ramo });
+                db.get('Ramo', function(err, results_Ramo, fields) {
+
+                  ramo = results_Ramo[0];
+
+                  console.log(ramo);
+
+                  var nombre_ramo = ramo["nombre_ramo"];
+                  var id_ramo = ramo["id_ramo"];
+
+                  nombres_ramos.push(nombre_ramo);
+                  id_ramos.push(id_ramo);
+
+                  req.session.nombres_ramos = nombres_ramos;
+                  req.session.id_ramos = id_ramos;
+
+                  con++;
+
+                  if(con == Profe_ramo.length){
+                    console.log(req.session.nombres_ramos);
+                    res.render("home", {user_session : req.session.user, nombres_ramos : req.session.nombres_ramos,
+                      id_ramos : req.session.id_ramos, admin : admin});
+                  }
+
+                });
+              }
+            }
+            else{
+              res.render("home", {user_session : req.session.user, nombres_ramos : [],
+                id_ramos : req.session.id_ramos, admin : admin});
+            }
+
+          });
+        });
+
+
+      }
+
     }
 
   }
@@ -887,30 +1114,58 @@ router.get('/ramo/:id_ramo/contenido/:id_contenido', function (req, res, next) {
 
       if(!req.session.alumno) {
 
-        db.where({nombre_usuario: req.session.user.nombre_usuario});
-        db.get('Alumno', function (err, results_alumno, fields) {
-
-          alumno = results_alumno[0];
-          req.session.alumno = alumno;
+        if(req.session.user.tipo_usuario == 0){
 
 
+          db.where({nombre_usuario: req.session.user.nombre_usuario});
+          db.get('Alumno', function (err, results_alumno, fields) {
 
-          res.render('contenidos_ramo', {
-            user_session: req.session.user, alumno_session: req.session.alumno, id_ramo: id_ramo, contenido: contenido
-            , motivacion: motivacion, def_conceptos: def_conceptos, exp_a_realizar: exp_a_realizar,
-            video_motivacional: video_motivacional, que_problema_resuelve: que_problema_resuelve,
-            datos_necesarios_para_ejercicio: datos_necesarios_para_ejercicio, formulario: formulario,
-            ejemplos: ejemplos, preguntas_del_tipo: preguntas_del_tipo, lluvia_ideas: lluvia_ideas,
-            analogias: analogias, ejercicio_mapa_conceptual: ejercicio_mapa_conceptual,
-            base_teorica: base_teorica, conocimientos_previos: conocimientos_previos,
-            principio_teoria: principio_teoria, documentacion_adicional: documentacion_adicional,
-            que_aprenderas_topico: que_aprenderas_topico, experimentacion_explicacion: experimentacion_explicacion,
-            formulario_ejercicios: formulario_ejercicios
+            alumno = results_alumno[0];
+            req.session.alumno = alumno;
+
+            res.render('contenidos_ramo', {
+              user_session: req.session.user, alumno_session: req.session.alumno, id_ramo: id_ramo, contenido: contenido
+              , motivacion: motivacion, def_conceptos: def_conceptos, exp_a_realizar: exp_a_realizar,
+              video_motivacional: video_motivacional, que_problema_resuelve: que_problema_resuelve,
+              datos_necesarios_para_ejercicio: datos_necesarios_para_ejercicio, formulario: formulario,
+              ejemplos: ejemplos, preguntas_del_tipo: preguntas_del_tipo, lluvia_ideas: lluvia_ideas,
+              analogias: analogias, ejercicio_mapa_conceptual: ejercicio_mapa_conceptual,
+              base_teorica: base_teorica, conocimientos_previos: conocimientos_previos,
+              principio_teoria: principio_teoria, documentacion_adicional: documentacion_adicional,
+              que_aprenderas_topico: que_aprenderas_topico, experimentacion_explicacion: experimentacion_explicacion,
+              formulario_ejercicios: formulario_ejercicios
+            });
           });
 
 
+        }
+        else if(req.session.user.tipo_usuario == 1){
 
-        });
+
+          db.where({nombre_usuario: req.session.user.nombre_usuario});
+          db.get('Profesor', function (err, results_alumno, fields) {
+
+            profe = results_alumno[0];
+            req.session.alumno = profe;
+
+            res.render('contenidos_ramo', {
+              user_session: req.session.user, alumno_session: req.session.alumno, id_ramo: id_ramo, contenido: contenido
+              , motivacion: motivacion, def_conceptos: def_conceptos, exp_a_realizar: exp_a_realizar,
+              video_motivacional: video_motivacional, que_problema_resuelve: que_problema_resuelve,
+              datos_necesarios_para_ejercicio: datos_necesarios_para_ejercicio, formulario: formulario,
+              ejemplos: ejemplos, preguntas_del_tipo: preguntas_del_tipo, lluvia_ideas: lluvia_ideas,
+              analogias: analogias, ejercicio_mapa_conceptual: ejercicio_mapa_conceptual,
+              base_teorica: base_teorica, conocimientos_previos: conocimientos_previos,
+              principio_teoria: principio_teoria, documentacion_adicional: documentacion_adicional,
+              que_aprenderas_topico: que_aprenderas_topico, experimentacion_explicacion: experimentacion_explicacion,
+              formulario_ejercicios: formulario_ejercicios
+            });
+          });
+
+
+        }
+
+
       }
       else{
 
