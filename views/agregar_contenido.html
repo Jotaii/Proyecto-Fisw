@@ -42,12 +42,11 @@
             <h3 style="border-bottom: solid 1px black"> Descripcion del contenido: {{nombre}}</h3>
             <br>
             {{descripcion}}
-            <br><br><br><br><br><br>
+            <br><br><br>
             <form action="/upload" method='POST' enctype="multipart/form-data">
-                <input type="text" name="name" value="001"/>
-                <input type="file" name='images'/>
+                <input id="input-1" class="file" type="file" name='images'/>
                 <input type="hidden" name="nombrecont" value="{{ nombre }}">
-                <input type="submit" value='Subir'/>
+                <input class="boton" type="submit" value='Subir'/>
 
             </form>
             <br><br><br>
