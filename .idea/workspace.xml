@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f9339c9-a884-44fc-af4d-6d320127449e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BD_connection.js" afterPath="$PROJECT_DIR$/BD_connection.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/agregar_contenido.html" afterPath="$PROJECT_DIR$/views/agregar_contenido.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/contenido_convergente.html" afterPath="$PROJECT_DIR$/views/contenido_convergente.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.html" afterPath="$PROJECT_DIR$/views/index.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Diagramas-Kolb-Actualizado15:30.vpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Diagramas-Kolb-Actualizado17:05.vpp" afterPath="" />
     </list>
     <ignored path="Kolb.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,9 +29,14 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6678">
-              <caret line="371" column="81" selection-start-line="371" selection-start-column="81" selection-end-line="371" selection-end-column="81" />
-              <folding />
+            <state relative-caret-position="6324">
+              <caret line="372" column="81" selection-start-line="372" selection-start-column="81" selection-end-line="372" selection-end-column="81" />
+              <folding>
+                <marker date="1480295375496" expanded="true" signature="7580:7937" ph="{...}" />
+                <marker date="1480295375496" expanded="true" signature="7707:7937" ph="{...}" />
+                <marker date="1480295375496" expanded="true" signature="7865:7937" ph="{...}" />
+                <marker date="1480295375496" expanded="true" signature="36759:36963" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -42,20 +44,28 @@
       <file leaf-file-name="contenido_convergente.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/contenido_convergente.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="56" column="14" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="969">
+              <caret line="57" column="10" selection-start-line="57" selection-start-column="10" selection-end-line="57" selection-end-column="10" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="contenidos_ramo.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="contenidos_ramo.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/contenidos_ramo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="54" column="23" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="23" />
+            <state relative-caret-position="0">
+              <caret line="48" column="23" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="561">
+              <caret line="153" column="3" selection-start-line="153" selection-start-column="3" selection-end-line="153" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -64,9 +74,24 @@
       <file leaf-file-name="agregar_contenido.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/agregar_contenido.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="313">
-              <caret line="47" column="38" selection-start-line="47" selection-start-column="38" selection-end-line="47" selection-end-column="38" />
-              <folding />
+            <state relative-caret-position="782">
+              <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
+              <folding>
+                <marker date="1480295376632" expanded="true" signature="83:2846" ph="..." />
+                <marker date="1480295376632" expanded="true" signature="153:2835" ph="..." />
+                <marker date="1480295376632" expanded="true" signature="193:2828" ph="..." />
+                <marker date="1480295376632" expanded="false" signature="214:293" ph="..." />
+                <marker date="1480295376632" expanded="false" signature="389:434" ph="..." />
+                <marker date="1480295376632" expanded="true" signature="435:2128" ph="..." />
+                <marker date="1480295376632" expanded="false" signature="478:529" ph="..." />
+                <marker date="1480295376632" expanded="false" signature="628:651" ph="..." />
+                <marker date="1480295376632" expanded="true" signature="670:1958" ph="..." />
+                <marker date="1480295376632" expanded="false" signature="2055:2092" ph="..." />
+                <marker date="1480295376632" expanded="false" signature="2211:2258" ph="..." />
+                <marker date="1480295376632" expanded="true" signature="2269:2817" ph="..." />
+                <marker date="1480295376632" expanded="false" signature="2311:2341" ph="..." />
+                <marker date="1480295376632" expanded="true" signature="2727:2777" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -74,7 +99,7 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
+            <state relative-caret-position="374">
               <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
               <folding />
             </state>
@@ -142,11 +167,11 @@
         <option value="$PROJECT_DIR$/views/crear_ramo.html" />
         <option value="$PROJECT_DIR$/BD_connection.js" />
         <option value="$PROJECT_DIR$/views/ramo.html" />
-        <option value="$PROJECT_DIR$/views/contenidos_ramo.html" />
         <option value="$PROJECT_DIR$/controllers/index.js" />
         <option value="$PROJECT_DIR$/views/agregar_contenido.html" />
         <option value="$PROJECT_DIR$/views/index.html" />
         <option value="$PROJECT_DIR$/views/contenido_convergente.html" />
+        <option value="$PROJECT_DIR$/views/contenidos_ramo.html" />
       </list>
     </option>
   </component>
@@ -165,10 +190,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="65" />
-    <option name="y" value="-4" />
-    <option name="width" value="1301" />
-    <option name="height" value="772" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="754" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -372,6 +397,7 @@
       <workItem from="1479793462020" duration="435000" />
       <workItem from="1479827398734" duration="6693000" />
       <workItem from="1479839019540" duration="1086000" />
+      <workItem from="1480295572925" duration="44000" />
     </task>
     <task id="LOCAL-00001" summary="'fix' formulario">
       <created>1478122279354</created>
@@ -412,18 +438,18 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="180320000" />
+    <option name="totallyTimeSpent" value="180364000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21752498" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21726191" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.4255639" sideWeight="0.5146413" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932332" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23019432" sideWeight="0.48535872" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2295345" sideWeight="0.48535872" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32932332" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -661,13 +687,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2301">
-          <caret line="153" column="3" selection-start-line="153" selection-start-column="3" selection-end-line="153" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -698,42 +717,68 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6678">
-          <caret line="371" column="81" selection-start-line="371" selection-start-column="81" selection-end-line="371" selection-end-column="81" />
+        <state relative-caret-position="6324">
+          <caret line="372" column="81" selection-start-line="372" selection-start-column="81" selection-end-line="372" selection-end-column="81" />
+          <folding>
+            <marker date="1480295375496" expanded="true" signature="7580:7937" ph="{...}" />
+            <marker date="1480295375496" expanded="true" signature="7707:7937" ph="{...}" />
+            <marker date="1480295375496" expanded="true" signature="7865:7937" ph="{...}" />
+            <marker date="1480295375496" expanded="true" signature="36759:36963" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/contenido_convergente.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="969">
+          <caret line="57" column="10" selection-start-line="57" selection-start-column="10" selection-end-line="57" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/contenidos_ramo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="48" column="23" selection-start-line="48" selection-start-column="23" selection-end-line="48" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/agregar_contenido.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="47" column="38" selection-start-line="47" selection-start-column="38" selection-end-line="47" selection-end-column="38" />
-          <folding />
+        <state relative-caret-position="782">
+          <caret line="46" column="38" selection-start-line="46" selection-start-column="38" selection-end-line="46" selection-end-column="38" />
+          <folding>
+            <marker date="1480295376632" expanded="true" signature="83:2846" ph="..." />
+            <marker date="1480295376632" expanded="true" signature="153:2835" ph="..." />
+            <marker date="1480295376632" expanded="true" signature="193:2828" ph="..." />
+            <marker date="1480295376632" expanded="false" signature="214:293" ph="..." />
+            <marker date="1480295376632" expanded="false" signature="389:434" ph="..." />
+            <marker date="1480295376632" expanded="true" signature="435:2128" ph="..." />
+            <marker date="1480295376632" expanded="false" signature="478:529" ph="..." />
+            <marker date="1480295376632" expanded="false" signature="628:651" ph="..." />
+            <marker date="1480295376632" expanded="true" signature="670:1958" ph="..." />
+            <marker date="1480295376632" expanded="false" signature="2055:2092" ph="..." />
+            <marker date="1480295376632" expanded="false" signature="2211:2258" ph="..." />
+            <marker date="1480295376632" expanded="true" signature="2269:2817" ph="..." />
+            <marker date="1480295376632" expanded="false" signature="2311:2341" ph="..." />
+            <marker date="1480295376632" expanded="true" signature="2727:2777" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
+        <state relative-caret-position="374">
           <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/contenido_convergente.html">
+    <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="56" column="14" selection-start-line="56" selection-start-column="14" selection-end-line="56" selection-end-column="14" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#4;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/contenidos_ramo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="54" column="23" selection-start-line="54" selection-start-column="23" selection-end-line="54" selection-end-column="23" />
+        <state relative-caret-position="561">
+          <caret line="153" column="3" selection-start-line="153" selection-start-column="3" selection-end-line="153" selection-end-column="3" />
           <folding />
         </state>
       </provider>
